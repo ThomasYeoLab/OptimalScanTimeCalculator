@@ -60,6 +60,7 @@ img {
   margin-top: 50px;
   margin-bottom: 50px;
   word-wrap: break-word; 
+  overflow: auto; 
 }
 
 .title-container {
