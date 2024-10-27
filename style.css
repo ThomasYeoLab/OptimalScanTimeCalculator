@@ -2,7 +2,10 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Helvetica', 'Arial', sans-serif;
-  font-size: 14px;
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 0.015em;
+  word-spacing: 0.08em;
   background: white;
   color: black;
 }
@@ -49,7 +52,7 @@ img {
 
 /* container settings */
 .container {
-  width: 80%;
+  width: 90%;
   height: 85vh; /* % of the viewport height */
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -58,7 +61,7 @@ img {
   margin: 0 auto;
   border-radius: 5px;
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 0px;
   word-wrap: break-word; 
   overflow: auto; 
 }
@@ -158,7 +161,7 @@ img {
 
 .table-container {
     width: 100%;
-    max-height: 400px;
+    max-height: 500px;
     overflow-y: scroll;
     overflow-x: auto;
 }
@@ -179,8 +182,10 @@ img {
 }
 
 .dropdown-icon {
+    background: none;
+    border: none;
     cursor: pointer;
-    margin-left: 5px; /* Adjust spacing as needed */
+    font-size: 20px;
     display: inline-block;
 }
 
@@ -214,6 +219,8 @@ img {
 
 /* tab settings */
 .tabs {
+  align-items: center;
+  justify-content: center;
   display: flex;
   position: relative;
   background-color: #fff;
@@ -233,10 +240,10 @@ img {
   justify-content: center;
   text-align: center; /* Center-align the text */
   height: 20px;
-  width: 50%;
+  width: 100%;
   font-size: 16px;
   font-weight: 500;
-  border-radius: 99px; /* just a high number to create pill effect */
+  border-radius: 99px;
   cursor: pointer;
   transition: color 0.15s ease-in;
 }
@@ -248,6 +255,8 @@ img {
     opacity: 0;           /* Fully transparent */
     transition: opacity 0.3s ease, visibility 0.3s ease, height 0.3s ease; /* Smooth transition */
     height: 0;            /* Collapse height to 0 when hidden */
+    align-items: center;
+    justify-content: center;
 }
 
 .tab-content.active {
@@ -256,6 +265,8 @@ img {
     height: 100%;         /* Expand height */
     width: 80%;
     margin: 0 auto;          /* Center it */
+    align-items: center;
+    justify-content: center;
 }
 
 .glider {
@@ -359,7 +370,8 @@ h2 {
 
 .section-divider {
     border: 1px solid #ddd; /* Adjust the border color */
-    margin: 20px 0; /* Adjust the margin to control the space around the divider */
+    margin-top: 5px;
+    margin-bottom: 15px;
 }
 
 label {
@@ -482,6 +494,7 @@ body {
     margin: 3px 0; /* Adjust the margin to control the space around the divider */
 }
 
+
 h1 {
   font-size: 14px;
 }
@@ -560,4 +573,3 @@ input[type="number"] {
       margin-top: 10px;
   }
 }
-

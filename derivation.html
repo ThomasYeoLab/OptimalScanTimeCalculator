@@ -7,14 +7,15 @@
     <title>ORSP MRI Calculator</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow&display=swap">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
+<body>    
     <!-- Menu -->
     <div class="menu-bar">
         <ul>
             <li><a onclick="jumpToSection('about')">About</a></li>
             <li><a onclick="jumpToSection('budgetcalc')">Budget and Scan Billing Calculator</a></li>
-            <li><a onclick="jumpToSection('derivation')">Derivation</a></li>
+            <li><a onclick="jumpToSection('deri')">Derivation</a></li>
             <!--
             <li><a onclick="jumpToSection('acccalc')">Accuracy Calculator</a></li>
             -->
@@ -22,24 +23,26 @@
     </div>
 
     <!-- Section 1: Introduction -->
-    <section id="about">
+    <section id="derivation">
     <div class="container" id="container1">
-        <h1>Ooi2024 ME Calculator</h1>
-        <h2>Citation</h2>
-        <hr class="section-divider">
-        <p> Ooi LQR*, Orban C*, Zhang S*, Nichols TE, ..., Yeo BTT. <a href="https://www.biorxiv.org/content/10.1101/2024.02.16.580448v2"> MRI economics: Balancing sample size and scan duration in brain wide association studies</a>. bioRxiv, 2024. 
+        <h1>Empirical Distributions of \(K_0\), \(K_1\) and \(K_2\)</h1>
+        \[E(\hat{\rho}) \approx K_0 \sqrt{\frac{1}{1 + \frac{K_1}{N} + \frac{K_2}{NT}}}\]
+        <p>
+            where \(E(\hat{\rho})\) is the expected prediction accuracy of a phenotype, \(N\) is the sample size and \(T\) is the scan duration. \(K_0\) is related to the ideal association between brain
+        measurements and phenotypes, attenuated by phenotype reliability. \(K_1\) is the inverse Cohen's \(f^2\) of the ideal noise-free phenotype prediction. \(K_2\) is the measurement error relative to the variance explained by noise-free ideal prediction. 
         </p>
-        <br>
-        <h2>Description</h2>
+        <p>
+            Intuitively, \(K_0\) is upper-bound of the expected prediction accuracy. \(K_1\) and \(K_2\) determine the relative signifance of \(N\) and \(NT\). In the extreme case when \(K_1 >> K_2\), scan duration \(T\) has a much smaller contribution to \(E(\hat{\rho})\) than sample size \(N\). 
+            On the other hand, if \(K_2 >> K_1\), \(E(\hat{\rho})\) is essentially determined by the product of \(N\) and \(T\), meaning that \(N\) and \(T\) are largely interchangeble.
+        </p>    
+        <p>
+            The following are the empirical distributions of \(K_0\), \(K_1\) and \(K_2\), generated based on phenotypes across 6 large datasets.
+        </p>
+            <img src="K0_distribution.png" width="500" height="400" alt="K0 distribution">
+            <img src="K1_distribution.png" width="500" height="400" alt="K1 distribution">
+            <img src="K2_distribution.png" width="500" height="400" alt="K2 distribution">
         <hr class="section-divider">
-        <p> A pervasive dilemma in neuroimaging is whether to prioritize sample size or scan duration given fixed resources. Here, we provide a tool that calculates the achievable individual-level prediction accuracy with different combinations of fMRI sample size and scan durations, after taking into account other study costs. This tool was built on 6 diverse datasets spanning phenotypic domains (cognition, personality, physical attributes, mental health, PET measures, etc), scanners (Siemens, GE and Philips), acquisition protocols (single-echo-single-band, single-echo-multi-band, multi-echo-multi-band), continents (North America and East Asia), health status (healthy, psychiatric disorders, mild cognitive impairment, Alzheimer's disease), age groups (children, young adults, elderly), as well as resting-state and task-state functional connectivity. Our study found that the optimal scan time range was largely similarly across the datasets, suggesting that this calculator will be useful for most applications.
-        <br><br>
-        <img src="README_Figure.jpg" alt="README Figure"></p>
-        <h2>Updates</h2>
-        <hr class="section-divider">
-        <p> v0.01 (xx/xx/2024): Initial release of web app <br><br>
-            <b>Bugs and questions:</b> Please contact Leon Ooi (leonooiqr@gmail.com), Shaoshi Zhang (0zhangshaoshi0@gmail.com) or Thomas Yeo (yeoyeo02@gmail.com). </p>
-    </div>
+        </div>
     </section>
 
     <!-- Include Sheetjs to read xlsx -->

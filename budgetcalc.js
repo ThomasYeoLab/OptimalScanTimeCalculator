@@ -507,7 +507,7 @@ function plotLinePlot(LineEl, x_vec, y_vec, pt) {
         height: containerHeight,
         width: containerWidth,
         title: {
-            text: 'Normalized Accuracy vs Scan Duration',
+            text: 'Normalized Accuracy vs fMRI Scan Duration',
             font: {size: fontsz},
         },
         showlegend: true,
@@ -526,7 +526,7 @@ function plotLinePlot(LineEl, x_vec, y_vec, pt) {
             },
         },
         yaxis: {
-            title: 'Accuracy',
+            title: 'Normalized Accuracy',
             titlefont: {
                 size: fontsz,
             },
@@ -627,6 +627,7 @@ function getBudgetParams() {
                    ScanItvlValue, psScanTimeValue, otScanTimeValue, PptCostValue, SsnCostValue, 
                    oneTimeSiteValue, numSiteValue, perSiteValue)
               });
+              G2OptimaEl.click(); 
           });
   }
 }
@@ -798,6 +799,7 @@ document.getElementById('r_order').addEventListener('change', function() {
 });
 
 // Dropdown for phenotype selection
+
 function toggleDropdown(dropdownId, columnIndex) {
     const dropdown = document.getElementById(dropdownId);
     
