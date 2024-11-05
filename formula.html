@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORSP MRI Calculator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>    
+    <!-- Menu -->
+    <div class="menu-bar">
+        <ul>
+            <li><a onclick="jumpToSection('about')">About</a></li>
+            <li><a onclick="jumpToSection('budgetcalc')">Budget and Scan Billing Calculator</a></li>
+            <li><a onclick="jumpToSection('formula')">Formula</a></li>
+            <!--
+            <li><a onclick="jumpToSection('acccalc')">Accuracy Calculator</a></li>
+            -->
+        </ul>
+    </div>
+
+    <!-- Section 1: Introduction -->
+    <section id="Formula">
+    <div class="container" id="container1">
+        <h1>Empirical Distributions of \(K_0\), \(K_1\) and \(K_2\)</h1>
+        \[r =  K_0 \sqrt{\frac{1}{1 + \frac{K_1}{N} + \frac{K_2}{NT}}}\]
+        <p>
+            where \(r\) is the prediction accuracy, \(N\) is the sample size and \(T\) is the scan duration. 
+            Intuitively, \(K_0\) is the maximum possible accuracy (given infinite sample size and scan time). \(K_1\) and \(K_2\) determine the relative signifance of \(N\) and \(NT\). In the extreme case when \(K_1 >> K_2\), scan duration \(T\) has a much smaller contribution to \(r\) than sample size \(N\). 
+            On the other hand, if \(K_2 >> K_1\), \(r\) is essentially determined by the product of \(N\) and \(T\), meaning that \(N\) and \(T\) are largely interchangeble.
+        </p>    
+        <p>
+            The following are the empirical distributions of \(K_0\), \(K_1\) and \(K_2\), generated based on phenotypes across 6 large datasets.
+        </p>
+            <img src="K0_distribution.png" width="500" height="400" alt="K0 distribution">
+            <img src="K1_distribution.png" width="500" height="400" alt="K1 distribution">
+            <img src="K2_distribution.png" width="500" height="400" alt="K2 distribution">
+        <hr class="section-divider">
+        </div>
+    </section>
+
+    <!-- Include Sheetjs to read xlsx -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.0/dist/xlsx.full.min.js"></script>
+    <!-- Include Plotly.js for graph plotting -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Script for navigating pages -->
+    <script>
+    function jumpToSection(containerId) {
+        // Check the containerId and redirect to the appropriate page
+        if (containerId === 'acccalc') {
+            window.location.href = 'acccalc.html';
+        } else if (containerId === 'budgetcalc') {
+            window.location.href = 'budgetcalc.html';
+        } else if (containerId === 'about') {
+            window.location.href = 'index.html';
+        }
+    } 
+    </script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R33XW8PFE9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-R33XW8PFE9');
+    </script>
+
+</body>
+</html>
