@@ -114,11 +114,11 @@
             <option value="fixed_acc">Fixed accuracy</option>
         </select>
         </p>      
-        <div id="fmriBudget"style="display: none;">
+        <div id="fmriBudget">
             fMRI budget ($): 
             <input type="number" id="fmribudget" name="fmribudget" placeholder="100000"> <button class="popup-button"><div class="popup">Calculate prediction accuracy based on the amount of money allocated for the fMRI portion of the study.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
         </div>
-        <div id="targetAcc">
+        <div id="targetAcc", style="display: none;">
             Target accuracy (normalized): 
             <input type="number" id="fmribudget" name="target_acc" placeholder="0.5"> <button class="popup-button"><div class="popup">Calculate fMRI budget needed to achieve the target prediction accuracy (normalized to the theoretically highest accuracy)</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
         </div>
