@@ -1,14 +1,33 @@
-document.getElementById('fileInput').addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        loadExcelData(file).then(data => {
-            T = data[0].slice(1);   
-            N_actual = data.slice(1).map(row => row[0]).reverse();      
-            r = data.slice(1).map(row => row.slice(1));
+    async function loadXLSXFile() {
+        url = 'https://raw.githubusercontent.com/leonoqr/ORSP_Calculator/main/contour_plot.xlsx';
+        try {
+            // Fetch the file
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            // Read file as array buffer
+            const arrayBuffer = await response.arrayBuffer();
+
+            // Parse the file with SheetJS
+            const data = new Uint8Array(arrayBuffer);
+            const workbook = XLSX.read(data, { type: 'array' });
+
+            const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+            contour_data = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+            T = contour_data[0].slice(1);   
+            N_actual = contour_data.slice(1).map(row => row[0]).reverse();      
+            r = contour_data.slice(1).map(row => row.slice(1));
             createContourPlot(N_actual, T, r);
-        });
+
+            
+        } catch (error) {
+            console.error('Error loading or parsing the .xlsx file:', error);
+        }
     }
-});
+
+    // Call the function with your file URL
+    loadXLSXFile();
+
 
 async function loadExcelData(file) {
     const arrayBuffer = await file.arrayBuffer();
