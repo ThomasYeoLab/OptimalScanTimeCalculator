@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,7 @@
         <ul>
             <li><a onclick="jumpToSection('about')">About</a></li>
             <li><a onclick="jumpToSection('budgetcalc')">Budget and Scan Billing Calculator</a></li>
-            <li><a onclick="jumpToSection('derivation')">Derivation</a></li>
+            <li><a onclick="jumpToSection('formula')">Formula</a></li>
             <!--
             <li><a onclick="jumpToSection('acccalc')">Accuracy Calculator</a></li>
             -->
@@ -35,23 +36,69 @@
         <p> A pervasive dilemma in neuroimaging is whether to prioritize sample size or scan duration given fixed resources. Here, we provide a tool that calculates the achievable individual-level prediction accuracy with different combinations of fMRI sample size and scan durations, after taking into account other study costs. This tool was built on 6 diverse datasets spanning phenotypic domains (cognition, personality, physical attributes, mental health, PET measures, etc), scanners (Siemens, GE and Philips), acquisition protocols (single-echo-single-band, single-echo-multi-band, multi-echo-multi-band), continents (North America and East Asia), health status (healthy, psychiatric disorders, mild cognitive impairment, Alzheimer's disease), age groups (children, young adults, elderly), as well as resting-state and task-state functional connectivity. Our study found that the optimal scan time range was largely similarly across the datasets, suggesting that this calculator will be useful for most applications.
         <br><br>
         <img src="README_Figure.jpg" alt="README Figure"></p>
+
+        <!-- Interative Figure 6A -->
+        <h2>Prediction accuracy given sample size N and scan duration T</h2>
+        <hr class="section-divider">
+        <input type="file" id="fileInput" accept=".xlsx" />
+        <div id="plot"></div>
+        <div class="contour-slider-container">
+            
+            <div class="contour-slider-row">
+              <span class="contour-slider-label">Sample size (N): </span> 
+              <input type="range" id="ySlider" min="0" max="499" step="1" value="50">
+              <span id="yValueDisplay">200 </span>
+            </div>
+
+            <div class="contour-slider-row">
+                <span class="contour-slider-label">Scan duration (T):</span>
+                <input type="range" id="xSlider" min="1" max="200" step="1" value="60">
+                <span id="xValueDisplay">60</span>
+              </div>
+            <div id="zValueDisplay">Normalized prediction accuracy (r): </div> <button class="popup-button"><div class="popup">Accuracy computed under a 10-fold cross-validation setup and normalized across 123 phenotypes of 6 datasets</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>   
+          </div>
+
+        <h2>Enter your own N and T</h2>
+        <div id="N_T">
+            <p>
+                Sample size (N): 
+                <input type="number" id="sample_size" name="sample_size" placeholder="200"> 
+            </p>
+            
+            <p>
+                Scan time (T): 
+                <input type="number" id="scan_time" name="scan_time" placeholder="60"> min
+            </p>
+
+            <p>
+                <div class="button-container">
+                    <button class="calculate-acc-button" id="calculateAcc" onclick="calculate_acc()">Calculate prediction accuracy</button>
+                </div>
+            </p>
+
+            <div id="acc">Normalized prediction accuracy (r): </div>
+        </div>
+        
+
         <h2>Updates</h2>
         <hr class="section-divider">
-        <p> v0.01 (xx/xx/2024): Initial release of web app <br><br>
+        <p> v0.01 (05/11/2024): Initial release of web app <br><br>
             <b>Bugs and questions:</b> Please contact Leon Ooi (leonooiqr@gmail.com), Shaoshi Zhang (0zhangshaoshi0@gmail.com) or Thomas Yeo (yeoyeo02@gmail.com). </p>
     </div>
     </section>
+
 
     <!-- Include Sheetjs to read xlsx -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.0/dist/xlsx.full.min.js"></script>
     <!-- Include Plotly.js for graph plotting -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="index.js"></script>
     <!-- Script for navigating pages -->
     <script>
     function jumpToSection(containerId) {
         // Check the containerId and redirect to the appropriate page
-        if (containerId === 'acccalc') {
-            window.location.href = 'acccalc.html';
+        if (containerId === 'formula') {
+            window.location.href = 'formula.html';
         } else if (containerId === 'budgetcalc') {
             window.location.href = 'budgetcalc.html';
         } else if (containerId === 'about') {

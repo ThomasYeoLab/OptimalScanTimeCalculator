@@ -12,9 +12,6 @@ const psScanTime_El = document.getElementById("psScanTime");
 const otScanTime_El = document.getElementById("otScanTime");
 const PptCost_El = document.getElementById("PptCost");
 const SsnCost_El = document.getElementById("SsnCost");
-const numSite_El = document.getElementById("numSite");
-const perSite_El = document.getElementById("perSite");
-const oneTimeSite_El = document.getElementById("oneTimeSite");
 const maxS_El = document.getElementById("maxS");
 const oAccEl = document.getElementById("oAcc_Results");
 const rAccEl = document.getElementById("rAcc_Results");
@@ -59,7 +56,7 @@ function get_averages(vec) {
   // From a vector of values, get the mean, median and confidence inteval
   // Calculate mean
   let mean = vec.length > 0 ? vec.reduce((a, b) => a + b) / vec.length : 0;
-  let rounded_mean = parseFloat(mean.toPrecision(2)); // Round off to 2 significant figures
+  let rounded_mean = parseFloat(mean.toPrecision(3)); // Round off to 3 significant figures to make the curve smooth
 
   // Calculate confidence interval (assuming a 95% confidence level)
   let standardDeviation = Math.sqrt(vec.reduce((sum, value) => sum + (value - mean) ** 2, 0) / (vec.length - 1));
@@ -115,15 +112,23 @@ function CalcExcelAcc(workbook,indices,NValue,TValue,type) {
 // ------ 4. Functions to calculate optimal accuracy ---------------
 function getOptimalParams(budgetValue, maxTValue, minTValue, ScanItvlValue,
                           CostTimeValue, psScanTimeValue, otScanTimeValue,
-                          PptCostValue, SsnCostValue, numSiteValue,
-                          perSiteValue, oneTimeSiteValue, maxSValue) {
+                          PptCostValue, SsnCostValue, maxSValue) {
 
     // Calculate remaining budget after accounting for site costs
-    let rem_budget = budgetValue - (parseFloat(oneTimeSiteValue) + (parseFloat(numSiteValue) * parseFloat(perSiteValue)))
+    let rem_budget = budgetValue
+    let total_budget = parseFloat(budgetValue);
     // find the number of intervals a participant can handle
     let maxItvl = Math.floor((parseFloat(maxSValue) / parseFloat(ScanItvlValue)));
-    let fMRITime = parseFloat(minTValue);
-    let NumSessions = 0;
+    let interval = parseFloat(ScanItvlValue);
+    fMRITime = parseFloat(minTValue);
+    let interval_cost = parseFloat(CostTimeValue);
+    let participant_overhead_cost = parseFloat(PptCostValue);
+    let session_overhead_cost = parseFloat(SsnCostValue);
+    max_tolerance = parseFloat(maxSValue);
+    NumSessions = 1;
+    let one_time_overhead_time = parseFloat(otScanTimeValue);
+    let per_session_overhead_time = parseFloat(psScanTimeValue);
+    let actual_cost = 0;
     let TotalDuration = 0;
     let SessionDuration_Needed = 0;
     let Itvls_Needed = 0;
@@ -176,39 +181,44 @@ function getOptimalParams(budgetValue, maxTValue, minTValue, ScanItvlValue,
 
 
     // calculate accuracy from ranging from minimum fMRI value to maximum fMRI time value
+    // fMRITime refers to the actual time spent on fMRI, excluding overhead time and unused session time
     while (fMRITime <= parseFloat(maxTValue)) {
-        // Calculate how many sessions are needed, starting with one session      
-        NumSessions = 1;
-        // find total time and number of scan intervals needed per participant
-        TotalDuration = (parseFloat(psScanTimeValue) * NumSessions) + fMRITime
-                        + parseFloat(otScanTimeValue);
-        SessionDuration_Needed = TotalDuration;
-        Itvls_Needed = Math.ceil((TotalDuration / parseFloat(ScanItvlValue)));
-        Itvls_Scanned = Itvls_Needed;
-        // if you need more intervals than participant can handle, increase NumSessions
-        while (Itvls_Needed > maxItvl) {
-            NumSessions++;
-            // update total time needed per participant using minimum scan time
-            TotalDuration = (parseFloat(psScanTimeValue) * NumSessions) + fMRITime
-                            + parseFloat(otScanTimeValue);
-            // assume you scan maximum permissble time for previous sessions, calculate how much additional time is needed
-            SessionDuration_Needed = TotalDuration - ((NumSessions - 1) * maxItvl * parseFloat(ScanItvlValue));
-            // find remaining number of intervals needed
-            Itvls_Needed = Math.ceil(SessionDuration_Needed / parseFloat(ScanItvlValue));
-            //alert(`Looping over intervals: ${Itvls_Needed}, ${maxItvl}`)
-            Itvls_Scanned = (((NumSessions - 1) * maxItvl) + Itvls_Needed);
-        }
-        ScanDuration = Itvls_Scanned * parseFloat(ScanItvlValue);
-        unusedTime = ScanDuration - ((parseFloat(psScanTimeValue) * NumSessions)
-                     + fMRITime + parseFloat(otScanTimeValue));
+        if (max_tolerance >= fMRITime) {
+            // if participants' max tolerance is not shorter than the fMRI scanning time, having only 1 session is good enough
+            NumSessions = 1;
+            effective_time = one_time_overhead_time + per_session_overhead_time + fMRITime;
+            num_interval = Math.ceil(effective_time / interval);
+            cost_per_participant = num_interval * interval_cost;
+            total_cost_per_participant = cost_per_participant + participant_overhead_cost + session_overhead_cost;
+            num_Ppt = Math.floor(total_budget / total_cost_per_participant);
+            ScanDuration = num_interval * interval;
+            unusedTime = ScanDuration - effective_time;
+            actual_cost = num_Ppt * total_cost_per_participant;
+        } else {
+            // Otherwise, multiple sessions are needed
+            NumSessions = Math.ceil(fMRITime / max_tolerance); 
+            // Key assumption, the fMRI scanning time is assumed to be the same for each session
+            fMRITIme_per_session = fMRITime / NumSessions;
 
-        // find cost per participant in terms of all participant costs and session costs
-        PxperPpt = (Itvls_Scanned * parseFloat(CostTimeValue)) + parseFloat(PptCostValue)
-                   + (parseFloat(SsnCostValue) * NumSessions);
+            effective_time_first_session = one_time_overhead_time + per_session_overhead_time + fMRITIme_per_session;
+            effective_time_other_session = per_session_overhead_time + fMRITIme_per_session;
 
-        // find number of participants you can afford 
-        num_Ppt = Math.floor(parseFloat(rem_budget) / PxperPpt);
-        revised_Cost = num_Ppt * PxperPpt;
+            num_interval_first_session = Math.ceil(effective_time_first_session / interval);
+            num_interval_other_session = Math.ceil(effective_time_other_session / interval);
+
+            cost_per_participant_first_session = num_interval_first_session * interval_cost;
+            cost_per_participant_other_session = num_interval_other_session * interval_cost;
+
+            total_cost_per_participant_first_session = cost_per_participant_first_session + participant_overhead_cost + session_overhead_cost;
+            total_cost_per_participant_other_session = cost_per_participant_other_session + session_overhead_cost;
+
+            total_cost_per_participant = total_cost_per_participant_first_session + total_cost_per_participant_other_session * (NumSessions - 1);
+            num_Ppt = Math.floor(total_budget / total_cost_per_participant);
+            
+            ScanDuration = (num_interval_first_session + num_interval_other_session * (NumSessions - 1)) * interval;
+            unusedTime = Math.round(ScanDuration - effective_time_first_session - effective_time_other_session * (NumSessions - 1));
+            actual_cost = num_Ppt * total_cost_per_participant;
+        }      
 
         // run accuracy calculation based on accuracy option
         if (acc_option === 'own'){
@@ -222,7 +232,6 @@ function getOptimalParams(budgetValue, maxTValue, minTValue, ScanItvlValue,
         } else {
             filePath = 'https://raw.githubusercontent.com/leonoqr/ORSP_Calculator/main/CBIG_ME_TheoreticalModel_Params.xlsx';
             promises.push(fetchAccuracyData(filePath, num_Ppt, fMRITime));
-
         };
         // save values into vectors
         N_vec.push(num_Ppt);
@@ -230,8 +239,8 @@ function getOptimalParams(budgetValue, maxTValue, minTValue, ScanItvlValue,
         S_vec.push(NumSessions)
         SD_vec.push(ScanDuration)
         U_vec.push(unusedTime)
-        RC_vec.push(revised_Cost)
-        fMRITime++;
+        RC_vec.push(actual_cost)
+        fMRITime = fMRITime + 1;
     }
 
     // return vectors
@@ -269,9 +278,9 @@ function optimalParamsTable(div_el, A, NA, N, T, S, SL, US, RC, curr, optim) {
       },
       cells: {
         values: [
-            ["Accuracy (Pearson's r)", 'Fraction of Max. Accuracy',
+            ["Accuracy (Pearson's r)", 'Normalized Accuracy',
              'Sample size (N)', 'fMRI scan duration (T)', 'Number of sessions',
-            'Total scan length purchased', 'Unused scan time', 'Actual fMRI cost'],
+            'Total scan time purchased', 'Unused scan time', 'Actual fMRI cost'],
             [A[curr], NA[curr], N[curr], T[curr], S[curr], SL[curr], US[curr], RC[curr]],
             [A[optim], NA[optim], N[optim], T[optim], S[optim], SL[optim], US[optim], RC[optim]],
         ],
@@ -356,18 +365,6 @@ if (mode == 'Money'){
         },
     };
 
-    var siteCosts = {
-        y: categories,
-        x: [site_v],
-        name: 'Site Costs',
-        type: 'bar',
-        orientation: 'h',
-        hovertemplate: hoverTemplate,
-        marker: {
-            color: '#006400',
-        },
-    };
-
     var Unused = {
         y: categories,
         x: [unuse_v],
@@ -393,7 +390,7 @@ if (mode == 'Money'){
     };
 
     if (mode == 'Money'){
-        var reqData = [fMRI, MRIoverHead, nonMRIoverHead, siteCosts, Unused, RemBudg];
+        var reqData = [fMRI, MRIoverHead, nonMRIoverHead, Unused, RemBudg];
         var Title = "Budget breakdown"
     } else if (mode == 'Time') {
         var reqData = [fMRI, MRIoverHead, Unused];
@@ -463,6 +460,7 @@ function plotLinePlot(LineEl, x_vec, y_vec, pt) {
             color: 'orange', 
             width: linewidth,
         },
+        hovertemplate: '%{y:.2f}',  
     };
 
     // Create scatter plot
@@ -472,11 +470,13 @@ function plotLinePlot(LineEl, x_vec, y_vec, pt) {
         y: [maxY],
         mode: 'markers',
         type: 'scatter',
-        name: 'Optimal parameters',
+        name: 'Optimal N & T',
         marker: {
             size: markersz,
             color: 'green',  
         },
+        hoverlabel: {namelength :-1},
+        hovertemplate: '%{y:.2f}'
     };
 
     // Create highlight between maxY and (maxY - 0.01)
@@ -494,12 +494,14 @@ function plotLinePlot(LineEl, x_vec, y_vec, pt) {
         x: [pt, pt],
         y: [Math.min(...lineTrace.y), Math.max(...lineTrace.y)],
         mode: 'lines',
-        name: 'Current parameters',
+        name: 'Current N & T',
         line: {
         color: 'darkblue',
         width: linewidth,
         dash: 'darkblue'
-        }
+        },
+        hoverlabel: {namelength :-1},
+        hovertemplate: '%{y:.2f}'
     };
 
     // Define the layout
@@ -532,6 +534,7 @@ function plotLinePlot(LineEl, x_vec, y_vec, pt) {
             },
         },
         margin: { l: 60, r: 10, b: 30, t: 25 },
+        dragmode: false,
     };
 
     var config = { displayModeBar: false };
@@ -552,9 +555,6 @@ function getBudgetParams() {
   const otScanTimeValue = otScanTime_El.value || otScanTime_El.placeholder;
   const PptCostValue = PptCost_El.value || PptCost_El.placeholder;
   const SsnCostValue = SsnCost_El.value || SsnCost_El.placeholder;
-  let numSiteValue = numSite_El.value || numSite_El.placeholder;
-  let perSiteValue = perSite_El.value || perSite_El.placeholder;
-  let oneTimeSiteValue = oneTimeSite_El.value || oneTimeSite_El.placeholder;
   const maxSValue = maxS_El.value || maxS_El.placeholder;
   var acc_option = OrderEl.value;
 
@@ -589,10 +589,10 @@ function getBudgetParams() {
       }
 
       // change scan interval value if participant cannot tolerate the full interval
-      if (parseFloat(maxSValue) < parseFloat(ScanItvlValue)) {
-          alert(`WARNING: Time participant can tolerate (${maxSValue} min) is less than scan time interval (${ScanItvlValue} min). Scan time interval will be set to ${maxSValue} min (i.e. full interval is not used)`)
-          ScanItvlValue = maxSValue
-      }
+      // if (parseFloat(maxSValue) < parseFloat(ScanItvlValue)) {
+      //    alert(`WARNING: Time participant can tolerate (${maxSValue} min) is less than scan time interval (${ScanItvlValue} min). Scan time interval will be set to ${maxSValue} min (i.e. full interval is not used)`)
+      //    ScanItvlValue = maxSValue
+      // }
 
       // update slider range
       fMRIrangeEl.min = parseFloat(minTValue);
@@ -601,20 +601,18 @@ function getBudgetParams() {
       getOptimalParams(budgetValue, maxTValue, minTValue, 
           ScanItvlValue, CostTimeValue, psScanTimeValue,
           otScanTimeValue, PptCostValue, SsnCostValue, 
-          numSiteValue, perSiteValue, oneTimeSiteValue, maxSValue)
+          maxSValue)
           .then(([acc_vec, normacc_vec, N_vec, T_vec, S_vec, SD_vec, U_vec, RC_vec]) => {
                   oldValue = Math.max(parseFloat(fMRIcurrTEl.textContent), parseFloat(minTValue));
                   updateLinePlotPosition(acc_vec, normacc_vec, N_vec, T_vec, S_vec, SD_vec, 
                   U_vec, RC_vec, oldValue, budgetValue, CostTimeValue,  
-                  ScanItvlValue, psScanTimeValue, otScanTimeValue, PptCostValue, SsnCostValue, 
-                  oneTimeSiteValue, numSiteValue, perSiteValue)
+                  ScanItvlValue, psScanTimeValue, otScanTimeValue, PptCostValue, SsnCostValue)
               fMRIrangeEl.addEventListener('input', function() {
                   // Update the span text with the current value of the range input
                   fMRIcurrTEl.textContent = this.value;
                   updateLinePlotPosition(acc_vec, normacc_vec, N_vec, T_vec, S_vec, SD_vec, 
                       U_vec, RC_vec, parseFloat(this.value), budgetValue, CostTimeValue,  
-                      ScanItvlValue, psScanTimeValue, otScanTimeValue, PptCostValue, SsnCostValue, 
-                      oneTimeSiteValue, numSiteValue, perSiteValue)
+                      ScanItvlValue, psScanTimeValue, otScanTimeValue, PptCostValue, SsnCostValue)
               });
               G2OptimaEl.addEventListener('click', function() {
                    // Update the span text with maximum location
@@ -624,17 +622,15 @@ function getBudgetParams() {
                    fMRIrangeEl.value = maxAcc_loc;
                    updateLinePlotPosition(acc_vec, normacc_vec, N_vec, T_vec, S_vec, SD_vec, 
                    U_vec, RC_vec, parseFloat(maxAcc_loc), budgetValue, CostTimeValue,  
-                   ScanItvlValue, psScanTimeValue, otScanTimeValue, PptCostValue, SsnCostValue, 
-                   oneTimeSiteValue, numSiteValue, perSiteValue)
+                   ScanItvlValue, psScanTimeValue, otScanTimeValue, PptCostValue, SsnCostValue)
               });
-              G2OptimaEl.click(); 
           });
   }
 }
 
 function updateLinePlotPosition(acc_vec, normacc_vec, N_vec, T_vec, S_vec, SD_vec, 
     U_vec, RC_vec, curr_pos, budgetValue, CostTimeValue, ScanItvlValue, psScanTimeValue, otScanTimeValue,
-    PptCostValue, SsnCostValue, oneTimeSiteValue, numSiteValue, perSiteValue) {
+    PptCostValue, SsnCostValue) {
     // Use the returned values here
     plotLinePlot(AccGraphEl, T_vec, normacc_vec, curr_pos)
     // update table
@@ -650,11 +646,8 @@ function updateLinePlotPosition(acc_vec, normacc_vec, N_vec, T_vec, S_vec, SD_ve
     var MRI_overhead = (parseFloat(psScanTimeValue) * S_vec[plot_pos]) + parseFloat(otScanTimeValue)
     var MRI_overhead_c = N_vec[plot_pos] * MRI_overhead * costperMin
     var nMRI_overhead_c = N_vec[plot_pos] * (parseFloat(PptCostValue) + (parseFloat(SsnCostValue) * S_vec[plot_pos]));
-    var siteCosts = parseFloat(oneTimeSiteValue) + (parseFloat(numSiteValue) * parseFloat(perSiteValue))
     var unused_c = N_vec[plot_pos]  * U_vec[plot_pos] * costperMin
     var rem_Budget = parseFloat(budgetValue) - RC_vec[plot_pos]
-    plotBarPlot('BudgetBar', fMRI_c, MRI_overhead_c, nMRI_overhead_c, siteCosts, unused_c, rem_Budget, 'Money')
-    plotBarPlot('TimeBar', T_vec[plot_pos], MRI_overhead, 0, 0, U_vec[plot_pos], 0, 'Time')
 }
 
 // -------------------- Event listeners ----------------------------
@@ -780,6 +773,29 @@ function goToNextTab() {
     updateGlider(document.getElementById(nextTabId));
     document.getElementById(nextTabId).dispatchEvent(new Event('change'));
 }
+
+// mode selection option
+// Phenotype selection option
+document.getElementById('mode_select').addEventListener('change', function() {
+    var selectedOption = this.value;
+    var targetAcc = document.getElementById('targetAcc');
+    var fmriBudget = document.getElementById('fmriBudget');
+    var fixed_budget_calculator = document.getElementById('fixed_budget_calculator');
+    var fixed_acc_calculator = document.getElementById('fixed_acc_calculator');
+    console.log(selectedOption)
+    
+    if (selectedOption === 'fixed_acc') {
+        targetAcc.style.display = 'block';
+        fmriBudget.style.display = 'none';
+        fixed_budget_calculator.style.display = 'none';
+        fixed_acc_calculator.style.display = 'block';
+    } else {
+        targetAcc.style.display = 'none';
+        fmriBudget.style.display = 'block';
+        fixed_acc_calculator.style.display = 'none';
+        fixed_budget_calculator.style.display = 'block';
+    }
+});
 
 // Phenotype selection option
 document.getElementById('r_order').addEventListener('change', function() {

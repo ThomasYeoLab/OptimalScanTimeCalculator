@@ -80,7 +80,7 @@ img {
   word-wrap: break-word; 
 }
 .flex-container {
-  width: 80%;
+  width: 100%;
   height: 50%;
   display: flex;
   max-width: none;
@@ -88,7 +88,7 @@ img {
 
 /* Left section for the AccGraph */
 .left {
-    flex: 0 0 95%; /* 70% of the width */  /* This will take up all available space on the left */
+    flex: 0 0 100%; /* 70% of the width */  /* This will take up all available space on the left */
     height: 100%; /* Full height */
 }
 
@@ -421,6 +421,46 @@ input[type="range"] {
     width: 100%;
     display: block; 
 }
+.slider-container {
+  display: flex;
+  align-items: center;
+}
+
+.slider-label {
+  margin: 0 10px;
+}
+
+.slider {
+  flex: 1;
+}
+
+#plot {
+  margin-bottom: -10px; /* Move plot closer to sliders */
+}
+.contour-slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Align each slider row in a single line */
+.contour-slider-row {
+  align-items: center;
+  margin: 5px 20px;
+  justify-content: center; /* Center items horizontally */
+}
+
+/* Styling for labels */
+.contour-slider-label {
+  white-space: nowrap; 
+  margin-right: 5px;
+  width:200px;
+}
+/* Z value display styling for the contour plot */
+#zValueDisplay {
+  margin-left: 15px; /* Space between Z display and sliders */
+}
 
 .button-container {
     display: flex;              /* Enable flexbox */
@@ -430,6 +470,10 @@ input[type="range"] {
 
 .next-tab-button {
     margin-left: auto; /* This ensures the button stays at the end */
+}
+
+.calculate-acc-button {
+  margin-right: auto; /* This ensures the button stays at the front */
 }
 
 button {
@@ -476,6 +520,12 @@ button:hover {
     font-size: 16px; /* Adjust the font size as needed */
     width: 80%; 
     margin-left: 10px;
+}
+
+#mode_select {
+  font-size: 16px; /* Adjust the font size as needed */
+  width: 20%; 
+  margin-left: 10px;
 }
 
 /* Adjustments for smaller screens */
@@ -531,6 +581,42 @@ input[type="number"] {
     height: 10px;
 }
 
+}
+
+/* Button styling */
+.popup-button {
+  display: inline-block;
+  position: relative;
+  padding: 2px 2px;
+  background-color: rgba(255, 255, 0, 0.736);
+  color: black;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+/* Pop-up window styling */
+.popup {
+  display: none;             /* Hidden by default */
+  position: absolute;
+  top: 40px;                  /* Position it below the button */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  padding: 15px;
+  background-color: #333;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  text-align: center;
+  z-index: 10;
+  overflow-wrap: break-word; 
+}
+
+/* Show pop-up on button hover */
+.popup-button:hover .popup {
+  display: block;
 }
 
 /* Adjustments for phone screens */
