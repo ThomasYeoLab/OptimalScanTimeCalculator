@@ -118,7 +118,7 @@ function createContourPlot(N_actual, T, r) {
     function updateCrosshairAndValues() {
       let xVal = parseInt(document.getElementById('xSlider').value, 10);
       let yVal = parseInt(document.getElementById('ySlider').value, 10);
-      let zVal = getZValue(xVal, yVal);
+      let zVal = getZValue(xVal, yVal)*100;
   
       // Update crosshair
       Plotly.restyle('plot', {
@@ -129,7 +129,7 @@ function createContourPlot(N_actual, T, r) {
       // Update slider values and Z value display
       document.getElementById('xValueDisplay').innerText = xVal;
       document.getElementById('yValueDisplay').innerText = N_actual[yVal];
-      document.getElementById('zValueDisplay').innerText = `Normalized prediction accuracy (r): ${zVal !== null ? zVal.toFixed(2) : 'N/A'}`;
+      document.getElementById('zValueDisplay').innerText = `${zVal !== null ? zVal.toFixed(2) : 'N/A'}`;
     }
   
     // Event listeners for sliders
@@ -186,8 +186,8 @@ function createContourPlot(N_actual, T, r) {
     promises.push(fetchAccuracyData(filePath, N, T));
     return Promise.all(promises).then(() => {
         // After all promises are resolved, return the result
-        acc = ACC[0];
-        document.getElementById('acc').innerText = `Normalized prediction accuracy (r): ${acc !== null ? acc.toFixed(2) : 'N/A'}`;
+        acc = ACC[0]*100;
+        document.getElementById('acc').innerText = `${acc !== null ? acc.toFixed(2) : 'N/A'}`;
     });
   };
   

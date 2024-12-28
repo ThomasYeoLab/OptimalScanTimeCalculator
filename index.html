@@ -53,29 +53,25 @@
                 <span class="contour-slider-label">Scan duration (T):</span>
                 <input type="range" id="xSlider" min="1" max="200" step="1" value="60">
                 <span id="xValueDisplay">60</span>
-              </div>
-            <div id="zValueDisplay">Normalized prediction accuracy (r): </div> <button class="popup-button"><div class="popup">Accuracy computed under a 10-fold cross-validation setup and normalized across 123 phenotypes of 6 datasets</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>   
-          </div>
+            </div>
+              % max prediction accuracy (r) <button class="popup-button"><div class="popup">Accuracy computed under a 10-fold cross-validation setup and averaged across 123 phenotypes from 6 datasets</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button> : <div class="inline-div", id="zValueDisplay"></div>
+        </div>
 
         <h2>Enter your own N and T</h2>
         <div id="N_T">
             <p>
                 Sample size (N): 
-                <input type="number" id="sample_size" name="sample_size" placeholder="200"> 
-            </p>
-            
-            <p>
-                Scan time (T): 
-                <input type="number" id="scan_time" name="scan_time" placeholder="60"> min
-            </p>
+                <input type="number" id="sample_size" name="sample_size" placeholder="200">             
+                Scan time (T/min): 
+                <input type="number" id="scan_time" name="scan_time" placeholder="60">
 
-            <p>
                 <div class="button-container">
                     <button class="calculate-acc-button" id="calculateAcc" onclick="calculate_acc()">Calculate prediction accuracy</button>
                 </div>
             </p>
 
-            <div id="acc">Normalized prediction accuracy (r): </div>
+            % max prediction accuracy (r) <button class="popup-button"><div class="popup">Accuracy computed under a 10-fold cross-validation setup and averaged across 123 phenotypes from 6 datasets</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button> : <div class="inline-div", id="acc"></div>
+
         </div>
         
 

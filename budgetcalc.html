@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow&display=swap">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Menu -->
     <div class="menu-bar">
@@ -23,236 +25,341 @@
 
     <!-- Section 2: Budget and Scan Billing Calculator -->
     <section id="budgetcalc">
-    <div class="title-container">
-        <h1>Budget and Scan Billing Calculator</h1>
-        <p> This calculator provides the optimal scan time considering the fMRI time range, provider constraints and other overhead costs. Hover over each input for a more detailed description of what to enter. Default values (in gray) are used if no values are entered for a particular box.</p>
-    </div>
-
-    <div class="tabs-container">
-        <div class="tabs">
-            <input type="radio" id="phenotypes" name="ProcessTab" checked data-container="phenotypes" />
-            <label class="tab" for="phenotypes">1. Phenotypes</label>
-            <input type="radio" id="budget" name="ProcessTab" data-container="budget" />
-            <label class="tab" for="budget">2. Mode and Time Constraints</label>
-            <input type="radio" id="overheads" name="ProcessTab" data-container="overheads" />
-            <label class="tab" for="overheads">3. Overheads</label>
-            <input type="radio" id="results" name="ProcessTab" data-container="results" />
-            <label class="tab" for="results">4. Results</label>
-            <span class="glider"></span>
-        </div>
-    </div>
-
-    <!-- Display Area -->
-    <!-- Phenotypes -->
-    <div class="tab-content" id="phenotypes-container">
-        <head>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        </head>    
-        Phenotype prediction accuracy estimation method:  <button class="popup-button"><div class="popup">Method of which to calculate estimate accuracy. Can either take parameters that were estimated from the average over a set of phenotypes in the paper, or enter your parameters.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
-        <select id="r_order">
-        <option value="original">Average over selected phenotypes</option>
-        <option value="own">Enter your own K0, K1 and K2 values</option>
-        </select>
-        <!-- Table of values -->
-        <br><br>
-        <div class="table-container" id="PhenTable" >
-        <table id="phenotype-table">
-        <thead>
-        <tr>
-            <th>Selection</th>
-            <th>Phenotype</th>
-            <th>
-                Dataset
-                <span class="dropdown-icon" onclick="toggleDropdown('dataset-dropdown', 2)">&#x25BC</span>
-                <div class="dropdown-content" id="dataset-dropdown">
-                </div>
-            </th>
-            <th>
-                Analysis Type
-                <span class="dropdown-icon" onclick="toggleDropdown('analysis-dropdown', 3)">&#x25BC</span>
-                <div class="dropdown-content" id="analysis-dropdown">
-                </div>
-            </th>
-            <th>
-                Category
-                <span class="dropdown-icon" onclick="toggleDropdown('category-dropdown', 4)">&#x25BC</span>
-                <div class="dropdown-content" id="category-dropdown">
-                </div>
-            </th>
-            <th>K0  <button class="popup-button"><div class="popup">Prediction accuracy (Pearson's Correlation) can be expressed as a function of sample size N and scan time T. K0 is the maximum possible accuracy (given infinite sample size and scan time). K1 and K2 provide the tradeoff between sample size N and scan time T. A larger value of K1 (relative to K2) indicates that sample size is important than scan time. On the other hand, a larger value of K2 (relative to K1) indicates that sample size and scan time are more interchangeable. See 'Formula' tab for more details.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button></th>
-            <th>K1</th>
-            <th>K2</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-        </table>
-        </div>
-        <div class="button-container" id="PhenTable_buttons">
-            <button class="button" onclick="clearAllSelections()">Deselect all</button>
-            <button class="next-tab-button" onclick="selectOoi2024_phenotypes(0, 122)">Select all datasets (original run order) + task phenotypes</button>
+        <div class="title-container">
+            <h1>Budget and Scan Billing Calculator</h1>
+            <p> This calculator provides the optimal scan time considering the fMRI time range, provider constraints and
+                other overhead costs. Hover over each input for a more detailed description of what to enter. Default
+                values (in gray) are used if no values are entered for a particular box.</p>
         </div>
 
-        <div id="KFields" style="display: none;">
-            <p>Enter K values: <button class="popup-button"><div class="popup">Prediction accuracy (Pearson's Correlation) can be expressed as a function of sample size N and scan time T. K0 is the maximum possible accuracy (given infinite sample size and scan time). K1 and K2 provide the tradeoff between sample size N and scan time T. A larger value of K1 (relative to K2) indicates that sample size is important than scan time. On the other hand, a larger value of K2 (relative to K1) indicates that sample size and scan time are more interchangeable. See 'Formula' tab for more details.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
-            <input type="number" id="BudgK0" placeholder="K0">
-            <input type="number" id="BudgK1" placeholder="K1">
-            <input type="number" id="BudgK2" placeholder="K2"></p>
-        </div>
-        <hr class="section-divider">
-        <div class="button-container">
-            <button class="next-tab-button" onclick="goToNextTab()">Next</button>
-        </div>
-    </div>
-
-    <!-- Budget -->
-    <div class="tab-content" id="budget-container">
-        <h2>1. Mode</h2>
-        <p>
-        <select id="mode_select">   
-            <option value="fixed_budget" selected>Fixed budget</option>     
-            <option value="fixed_acc">Fixed accuracy</option>
-        </select>
-        </p>      
-        <div id="fmriBudget">
-            fMRI budget ($): 
-            <input type="number" id="fmribudget" name="fmribudget" placeholder="100000"> <button class="popup-button"><div class="popup">Calculate prediction accuracy based on the amount of money allocated for the fMRI portion of the study.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
-        </div>
-        <div id="targetAcc", style="display: none;">
-            Target accuracy (normalized): 
-            <input type="number" id="fmribudget" name="target_acc" placeholder="0.5"> <button class="popup-button"><div class="popup">Calculate fMRI budget needed to achieve the target prediction accuracy (normalized to the theoretically highest accuracy)</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
-        </div>
-        
-        
-        <hr class="section-divider">
-        <h2>2. Total fMRI time range</h2>
-        <p>
-            Minimum fMRI (mins):
-            <input type="number" id="minT" name="minT" placeholder="1"> <button class="popup-button"><div class="popup">The minimum amount of fMRI data needed for the study. For example, in the case of scanning kids, this value should be set higher as more frames will likely be discared (for instance, due to higher motion) as compared to adults.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
-        </p>
-        <p>
-            Maximum fMRI (mins): 
-            <input type="number" id="maxT" name="maxT" placeholder="200"> <button class="popup-button"><div class="popup"> The amount of fMRI data after which researchers find additional scan time unnecessary.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
-        </p>
-        <hr class="section-divider">
-        <h2>3. MRI and manpower costs</h2>
-        <p>
-            Time quantum (mins):
-            <input type="number" id="ScanItvl" name="ScanItvl" placeholder="1"> <button class="popup-button"><div class="popup"> The smallest time interval at which the MRI center charges the researcher (e.g., 15 min, 30 min or 1 hour).</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
-        </p>
-        <p>
-            MRI cost per time quantum ($):
-            <input type="number" id="CostTime" name="CostTime" placeholder="8.333"> <button class="popup-button"><div class="popup"> This includes how much MRI provider charges PLUS manpower costs (e.g., costs of hiring research assistants).</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
-        </p>
-        
-        <hr class="section-divider">
-        <h2>4. Participant scan time constraints of a session</h2>
-        <p>
-            Maximum session tolerance (mins): 
-            <input type="number" id="maxS" name="maxS" placeholder="300"> <button class="popup-button"><div class="popup"> The upper limit of how long participants could tolerate in the scanner. This value varies depending on the population studied.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
-        </p>
-        <hr class="section-divider">
-
-        <div class="button-container">
-            <button class="next-tab-button" onclick="goToNextTab()">Next</button>
-        </div>
-    </div>
-
-    <!-- Overheads -->
-    <div class="tab-content" id="overheads-container">
-        <h2>5. Overhead MRI time</h2>
-        <p>
-            One-time (mins):
-            <input type="number" id="otScanTime" name="otScanTime" placeholder="0"> <button class="popup-button"><div class="popup"> Overhead time incurred only for the first session due to other sequences collected or other one-time MRI scanning events (e.g., body imaging, practice scan to acclimatize participant). </div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
-        </p>
-        <p>
-           Per-session (mins):
-            <input type="number" id="psScanTime" name="psScanTime" placeholder="0"> <button class="popup-button"><div class="popup"> Overhead time due to unavoidable setup for each scan session (e.g., participant setup).</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
-        </p>
-        <hr class="section-divider">
-        <h2>6. Overhead non-MRI cost</h2>
-        <p>
-            Per participant ($):
-            <input type="number" id="PptCost" name="PptCost" placeholder="500"> <button class="popup-button"><div class="popup"> Costs related to participants recruitment/consent, collecting other non-imaging tests (e.g., blood markers) and/or non-MRI imaging tests (e.g., PET). Other costs such as mock scanner practice for children can be included here.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
-        </p>
-        <p>
-            Per session ($):
-            <input type="number" id="SsnCost" name="SsnCost" placeholder="0"> <button class="popup-button"><div class="popup"> Costs inccured for each scan sesion (e.g., time and effort to coordinate with participants, pre-scan safety checks, data transfer to database etc).</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button>
-        </p>
-        <div class="button-container">
-            <button class="next-tab-button" id="CalcBudg" onclick="goToNextTab()">Generate scanning design</button>
-        </div>
-    </div>
-
-    <!-- Results -->
-    <div class="tab-content" id="results-container">
-        <div id="fixed_budget_calculator">
-        <div class="flex-container" >
-            <div id="AccGraph" class="left"></div>
-            <div class="right">
-                <div id="BudgetBar"></div>
-                <div id="TimeBar"></div>
+        <div class="tabs-container">
+            <div class="tabs">
+                <input type="radio" id="phenotypes" name="ProcessTab" checked data-container="phenotypes" />
+                <label class="tab" for="phenotypes">1. Phenotypes</label>
+                <input type="radio" id="budget" name="ProcessTab" data-container="budget" />
+                <label class="tab" for="budget">2. Mode and Time Constraints</label>
+                <input type="radio" id="overheads" name="ProcessTab" data-container="overheads" />
+                <label class="tab" for="overheads">3. Overheads</label>
+                <input type="radio" id="results" name="ProcessTab" data-container="results" />
+                <label class="tab" for="results">4. Results</label>
+                <span class="glider"></span>
             </div>
         </div>
-        <hr class="section-divider">
-        <div id="currT" style="display: flex; flex-direction: column;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">    
-            <p style="margin-right: 10px;" style="font-size:12">fMRI scan duration (T): <span id="fMRISpan">1</span>; Number of participants (N): <span id="NSpan">0</span></p>
-            <button id="G2Optima">Go to the first optimum</button>
-        </div>
-        <div class="slider-container" id="fMRIT_slider">
-            <span class="slider-label">Tmin</span> <!-- Left label -->
-            <input type="range" id="fMRIT" min="1" max="100" step="1" value="1" class="slider">
-            <span class="slider-label">Tmax</span> <!-- Right label -->
-        </div>
-        <p style="margin-right: 10px;" style="font-size:12">percent useable participants: <span id="TrainingPerc">90</span>% ~ <span id="TrainN">1</span> participants <button class="popup-button"><div class="popup"> The proprotion of participants used to train a BWAS model. Default value is set to 90% to account for attrition or cross-validation.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span></button></p> 
-        <input type="range" id="TrainingRatio" min="1" max="100" step="1" value="90">
-        <div id="Budget_Table"></div>
-        </div>
+
+        <!-- Display Area -->
+        <!-- Phenotypes -->
+        <div class="tab-content" id="phenotypes-container">
+
+            <head>
+                <link rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+            </head>
+            Phenotype prediction accuracy estimation method: <button class="popup-button">
+                <div class="popup">Method of which to calculate estimate accuracy. Can either take parameters that were
+                    estimated from the average over a set of phenotypes in the paper, or enter your parameters.</div>
+                <span class="question-icon"><i class="fas fa-circle-question"></i></span>
+            </button>
+            <select id="r_order">
+                <option value="original">Average over selected phenotypes</option>
+                <option value="own">Enter your own K0, K1 and K2 values</option>
+            </select>
+            <!-- Table of values -->
+            <br><br>
+            <div class="table-container" id="PhenTable">
+                <table id="phenotype-table">
+                    <thead>
+                        <tr>
+                            <th>Selection</th>
+                            <th>Phenotype</th>
+                            <th>
+                                Dataset
+                                <span class="dropdown-icon"
+                                    onclick="toggleDropdown('dataset-dropdown', 2)">&#x25BC</span>
+                                <div class="dropdown-content" id="dataset-dropdown">
+                                </div>
+                            </th>
+                            <th>
+                                Analysis Type
+                                <span class="dropdown-icon"
+                                    onclick="toggleDropdown('analysis-dropdown', 3)">&#x25BC</span>
+                                <div class="dropdown-content" id="analysis-dropdown">
+                                </div>
+                            </th>
+                            <th>
+                                Category
+                                <span class="dropdown-icon"
+                                    onclick="toggleDropdown('category-dropdown', 4)">&#x25BC</span>
+                                <div class="dropdown-content" id="category-dropdown">
+                                </div>
+                            </th>
+                            <th>K0 <button class="popup-button">
+                                    <div class="popup">Prediction accuracy (Pearson's Correlation) can be expressed as a
+                                        function of sample size N and scan time T. K0 is the maximum possible accuracy
+                                        (given infinite sample size and scan time). K1 and K2 provide the tradeoff
+                                        between sample size N and scan time T. A larger value of K1 (relative to K2)
+                                        indicates that sample size is important than scan time. On the other hand, a
+                                        larger value of K2 (relative to K1) indicates that sample size and scan time are
+                                        more interchangeable. See 'Formula' tab for more details.</div><span
+                                        class="question-icon"><i class="fas fa-circle-question"></i></span>
+                                </button></th>
+                            <th>K1</th>
+                            <th>K2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="button-container" id="PhenTable_buttons">
+                <button class="button" onclick="clearAllSelections()">Deselect all</button>
+                <button class="next-tab-button" onclick="selectOoi2024_phenotypes(0, 122)">Select all datasets (original
+                    run order) + task phenotypes</button>
+            </div>
+
+            <div id="KFields" style="display: none;">
+                <p>Enter K values: <button class="popup-button">
+                        <div class="popup">Prediction accuracy (Pearson's Correlation) can be expressed as a function of
+                            sample size N and scan time T. K0 is the maximum possible accuracy (given infinite sample
+                            size and scan time). K1 and K2 provide the tradeoff between sample size N and scan time T. A
+                            larger value of K1 (relative to K2) indicates that sample size is important than scan time.
+                            On the other hand, a larger value of K2 (relative to K1) indicates that sample size and scan
+                            time are more interchangeable. See 'Formula' tab for more details.</div><span
+                            class="question-icon"><i class="fas fa-circle-question"></i></span>
+                    </button>
+                    <input type="number" id="BudgK0" placeholder="K0">
+                    <input type="number" id="BudgK1" placeholder="K1">
+                    <input type="number" id="BudgK2" placeholder="K2">
+                </p>
+            </div>
+            <hr class="section-divider">
+            <div class="button-container">
+                <button class="next-tab-button" onclick="goToNextTab()">Next</button>
+            </div>
         </div>
 
-        <div id="fixed_acc_calculator", style="display: none;">
-            <!-- <img src="bazinga.jpg" alt="A cool-looking apple" width="300" height="200"> -->
-            Work in progress...
+        <!-- Budget -->
+        <div class="tab-content" id="budget-container">
+            <h2>1. Mode</h2>
+            <p>
+                <select id="mode_select">
+                    <option value="fixed_budget" selected>Fixed budget</option>
+                    <option value="fixed_acc">Fixed accuracy</option>
+                </select>
+            </p>
+            <div id="fmriBudget">
+                fMRI budget ($):
+                <input type="number" id="fmribudget" name="fmribudget" placeholder="100000"> <button
+                    class="popup-button">
+                    <div class="popup">Calculate prediction accuracy based on the amount of money allocated for the fMRI
+                        portion of the study.</div><span class="question-icon"><i
+                            class="fas fa-circle-question"></i></span>
+                </button>
+            </div>
+            <div id="targetAcc" , style="display: none;">
+                Target accuracy (normalized):
+                <input type="number" id="fmriacc" name="target_acc" placeholder="0.5"> <button class="popup-button">
+                    <div class="popup">Calculate fMRI budget needed to achieve the target prediction accuracy
+                        (normalized to the theoretically highest accuracy)</div><span class="question-icon"><i
+                            class="fas fa-circle-question"></i></span>
+                </button>
+            </div>
+
+
+            <hr class="section-divider">
+            <h2>2. Total fMRI time range</h2>
+            <p>
+                Minimum fMRI (mins):
+                <input type="number" id="minT" name="minT" placeholder="1"> <button class="popup-button">
+                    <div class="popup">The minimum amount of fMRI data needed for the study. For example, in the case of
+                        scanning kids, this value should be set higher as more frames will likely be discared (for
+                        instance, due to higher motion) as compared to adults.</div><span class="question-icon"><i
+                            class="fas fa-circle-question"></i></span>
+                </button>
+            </p>
+            <p>
+                Maximum fMRI (mins):
+                <input type="number" id="maxT" name="maxT" placeholder="200"> <button class="popup-button">
+                    <div class="popup"> The amount of fMRI data after which researchers find additional scan time
+                        unnecessary.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span>
+                </button>
+            </p>
+            <hr class="section-divider">
+            <h2>3. MRI and manpower costs</h2>
+            <p>
+                Time quantum (mins):
+                <input type="number" id="ScanItvl" name="ScanItvl" placeholder="1"> <button class="popup-button">
+                    <div class="popup"> The smallest time interval at which the MRI center charges the researcher (e.g.,
+                        15 min, 30 min or 1 hour).</div><span class="question-icon"><i
+                            class="fas fa-circle-question"></i></span>
+                </button>
+            </p>
+            <p>
+                MRI cost per time quantum ($):
+                <input type="number" id="CostTime" name="CostTime" placeholder="8.333"> <button class="popup-button">
+                    <div class="popup"> This includes how much MRI provider charges PLUS manpower costs (e.g., costs of
+                        hiring research assistants).</div><span class="question-icon"><i
+                            class="fas fa-circle-question"></i></span>
+                </button>
+            </p>
+
+            <hr class="section-divider">
+            <h2>4. Participant scan time constraints of a session</h2>
+            <p>
+                Maximum session tolerance (mins):
+                <input type="number" id="maxS" name="maxS" placeholder="300"> <button class="popup-button">
+                    <div class="popup"> The upper limit of how long participants could tolerate in the scanner. This
+                        value varies depending on the population studied.</div><span class="question-icon"><i
+                            class="fas fa-circle-question"></i></span>
+                </button>
+            </p>
+            <hr class="section-divider">
+
+            <div class="button-container">
+                <button class="next-tab-button" onclick="goToNextTab()">Next</button>
+            </div>
         </div>
-    </div>
+
+        <!-- Overheads -->
+        <div class="tab-content" id="overheads-container">
+            <h2>5. Overhead MRI time</h2>
+            <p>
+                One-time (mins):
+                <input type="number" id="otScanTime" name="otScanTime" placeholder="0"> <button class="popup-button">
+                    <div class="popup"> Overhead time incurred only for the first session due to other sequences
+                        collected or other one-time MRI scanning events (e.g., body imaging, practice scan to
+                        acclimatize participant). </div><span class="question-icon"><i
+                            class="fas fa-circle-question"></i></span>
+                </button>
+            </p>
+            <p>
+                Per-session (mins):
+                <input type="number" id="psScanTime" name="psScanTime" placeholder="0"> <button class="popup-button">
+                    <div class="popup"> Overhead time due to unavoidable setup for each scan session (e.g., participant
+                        setup).</div><span class="question-icon"><i class="fas fa-circle-question"></i></span>
+                </button>
+            </p>
+            <hr class="section-divider">
+            <h2>6. Overhead non-MRI cost</h2>
+            <p>
+                Per participant ($):
+                <input type="number" id="PptCost" name="PptCost" placeholder="500"> <button class="popup-button">
+                    <div class="popup"> Costs related to participants recruitment/consent, collecting other non-imaging
+                        tests (e.g., blood markers) and/or non-MRI imaging tests (e.g., PET). Other costs such as mock
+                        scanner practice for children can be included here.</div><span class="question-icon"><i
+                            class="fas fa-circle-question"></i></span>
+                </button>
+            </p>
+            <p>
+                Per session ($):
+                <input type="number" id="SsnCost" name="SsnCost" placeholder="0"> <button class="popup-button">
+                    <div class="popup"> Costs inccured for each scan sesion (e.g., time and effort to coordinate with
+                        participants, pre-scan safety checks, data transfer to database etc).</div><span
+                        class="question-icon"><i class="fas fa-circle-question"></i></span>
+                </button>
+            </p>
+            <div class="button-container">
+                <button class="next-tab-button" id="CalcBudg" onclick="goToNextTab()">Generate scanning design</button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="tab-content" id="results-container">
+            <div id="fixed_budget_calculator">
+                <div class="flex-container">
+                    <div id="AccGraph" class="left"></div>
+                </div>
+                <hr class="section-divider">
+                <div id="currT" style="display: flex; flex-direction: column;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <p style="margin-right: 10px;" style="font-size:12">fMRI scan duration (T): <span
+                                id="fMRISpan">1</span>; Number of participants (N): <span id="NSpan">0</span></p>
+                        <button id="G2Optima">Go to the first optimum</button>
+                    </div>
+                    <div class="slider-container" id="fMRIT_slider">
+                        <span class="slider-label">Tmin</span> <!-- Left label -->
+                        <input type="range" id="fMRIT" min="1" max="100" step="1" value="1" class="slider">
+                        <span class="slider-label">Tmax</span> <!-- Right label -->
+                    </div>
+                    <p style="margin-right: 10px;" style="font-size:12">percentage of useable participants: <span
+                            id="TrainingPerc">90</span>% ~ <span id="TrainN">1</span> participants <button
+                            class="popup-button">
+                            <div class="popup"> The proprotion of participants used to train a BWAS model. Default value
+                                is set to 90% to account for attrition or cross-validation. This is the actual sample
+                                size used to compute the % max prediction accuracy.</div><span class="question-icon"><i
+                                    class="fas fa-circle-question"></i></span>
+                        </button></p>
+                    <input type="range" id="TrainingRatio" min="1" max="100" step="1" value="90">
+                    <div id="Budget_Table"></div>
+                </div>
+            </div>
+
+            <div id="fixed_acc_calculator" , style="display: none;">
+                <div class="flex-container">
+                    <div id="BudgetGraph" class="left"></div>
+                </div>
+                <hr class="section-divider">
+                <div id="currT_FA" style="display: flex; flex-direction: column;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <p style="margin-right: 10px;" style="font-size:12">fMRI scan duration (T): <span
+                                id="fMRISpan_FA">1</span>; Number of participants (N): <span id="NSpan_FA">0</span></p>
+                        <button id="G2Optima_FA">Go to the first optimum</button>
+                    </div>
+                    <div class="slider-container" id="fMRIT_slider">
+                        <span class="slider-label">Tmin</span> <!-- Left label -->
+                        <input type="range" id="fMRIT_FA" min="1" max="100" step="1" value="1" class="slider">
+                        <span class="slider-label">Tmax</span> <!-- Right label -->
+                    </div>
+                    <p style="margin-right: 10px;" style="font-size:12">percentage of useable participants: <span
+                            id="TrainingPerc_FA">90</span>% ~ <span id="TrainN_FA">1</span> participants <button
+                            class="popup-button">
+                            <div class="popup"> The proprotion of participants used to train a BWAS model. Default value
+                                is set to 90% to account for attrition or cross-validation. This is the actual sample
+                                size used to compute the % max prediction accuracy.</div><span class="question-icon"><i
+                                    class="fas fa-circle-question"></i></span>
+                        </button></p>
+                    <input type="range" id="TrainingRatio_FA" min="1" max="100" step="1" value="90">
+                    <div id="Acc_Table"></div>
+                </div>
+            </div>
+        </div>
 
 
-    <!-- Include Sheetjs to read xlsx -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.0/dist/xlsx.full.min.js"></script>
-    <!-- Include Plotly.js for graph plotting -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <!-- Scripts to generate values -->
-    <script src="budgetcalc.js"></script>
-    <!-- Script for scrolling behavior -->
-    <script>
-    function jumpToSection(containerId) {
-        // Check the containerId and redirect to the appropriate page
-        if (containerId === 'acccalc') {
-            window.location.href = 'acccalc.html';
-        } else if (containerId === 'budgetcalc') {
-            window.location.href = 'budgetcalc.html';
-        } else if (containerId === 'about') {
-            window.location.href = 'index.html';
-        } else if (containerId === 'formula') {
-            window.location.href = 'formula.html';
-        }
-    } 
-    </script>
-    <!-- Script to toggle more text -->
-    <script>
-    function toggleMoreText(sectionId, show) {
-      var moreText = document.getElementById(sectionId);
-          moreText.style.display = show ? 'block' : 'none';
-    }
-    </script>
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R33XW8PFE9"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-R33XW8PFE9');
-    </script>
+        <!-- Include Sheetjs to read xlsx -->
+        <script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.0/dist/xlsx.full.min.js"></script>
+        <!-- Include Plotly.js for graph plotting -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <!-- Scripts to generate values -->
+        <script src="budgetcalc.js"></script>
+        <!-- Script for scrolling behavior -->
+        <script>
+            function jumpToSection(containerId) {
+                // Check the containerId and redirect to the appropriate page
+                if (containerId === 'acccalc') {
+                    window.location.href = 'acccalc.html';
+                } else if (containerId === 'budgetcalc') {
+                    window.location.href = 'budgetcalc.html';
+                } else if (containerId === 'about') {
+                    window.location.href = 'index.html';
+                } else if (containerId === 'formula') {
+                    window.location.href = 'formula.html';
+                }
+            } 
+        </script>
+        <!-- Script to toggle more text -->
+        <script>
+            function toggleMoreText(sectionId, show) {
+                var moreText = document.getElementById(sectionId);
+                moreText.style.display = show ? 'block' : 'none';
+            }
+        </script>
+        <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-R33XW8PFE9"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-R33XW8PFE9');
+        </script>
 </body>
+
 </html>

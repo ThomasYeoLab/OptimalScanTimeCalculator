@@ -50,6 +50,8 @@ img {
   background-color: #555;
 }
 
+.inline-div { display: inline-block; }
+
 /* container settings */
 .container {
   width: 90%;
