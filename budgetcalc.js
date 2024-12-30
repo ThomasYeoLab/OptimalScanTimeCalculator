@@ -183,7 +183,7 @@ function compute_budget(accValue, maxTValue, minTValue, ScanItvlValue,
                         [acc] = get_averages(normacc);
                         if (acc < 100 * parseFloat(accValue)) {
                             [normacc] = CalcExcelAcc(workbook, checkedRowIndices, n_mid+1, t, 'NormAcc');
-                            [acc] = get_averages(normacc);
+                            acc =  normacc.length > 0 ? normacc.reduce((a, b) => a + b) / normacc.length : 0;
                             if (acc >= 100 * parseFloat(accValue)) {
                                 f = 1;
                                 n_mid = n_mid + 1;
@@ -192,10 +192,10 @@ function compute_budget(accValue, maxTValue, minTValue, ScanItvlValue,
                             }
                         } else if (acc > 100 * parseFloat(accValue)) {
                             [normacc] = CalcExcelAcc(workbook, checkedRowIndices, n_mid-1, t, 'NormAcc');
-                            [acc] = get_averages(normacc);
+                            acc =  normacc.length > 0 ? normacc.reduce((a, b) => a + b) / normacc.length : 0;
                             if (acc <= 100 * parseFloat(accValue)) {
                                 f = 1;
-                                n_mid = n_mid - 1;
+                                n_mid = n_mid;
                             } else {
                                 n_hi = n_mid - 1;
                             }
