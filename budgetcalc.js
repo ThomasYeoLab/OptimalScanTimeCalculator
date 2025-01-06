@@ -1008,8 +1008,8 @@ function getAccParams() {
     var acc_option = OrderEl.value;
 
     // Display error message if any values are implausible
-    if (parseFloat(accValue) < parseFloat(0) || parseFloat(accValue) > parseFloat(1)) {
-        alert(`ERROR: Target accuracy should be a value between 0.01 and 0.99`);
+    if (parseFloat(accValue) < parseFloat(0) || parseFloat(accValue) > parseFloat(0.98)) {
+        alert(`ERROR: Target accuracy should be a value between 0.01 and 0.98`);
     } else if (parseFloat(maxTValue) < parseFloat(minTValue)) {
         alert(`ERROR: Maximum fMRI scan time (${maxTValue} min) is less than minimum fMRI scan time (${minTValue} min)`);
     } else if (parseFloat(maxSValue) < parseFloat(psScanTimeValue)) {
