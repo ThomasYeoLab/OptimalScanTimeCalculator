@@ -142,22 +142,22 @@
             <h2>1. Mode</h2>
             <p>
                 <select id="mode_select">
-                    <option value="fixed_budget" selected>Fixed budget</option>
-                    <option value="fixed_acc">Fixed accuracy</option>
+                    <option value="fixed_budget">Fixed budget</option>
+                    <option value="fixed_acc" selected>Fixed accuracy</option>
                 </select>
             </p>
-            <div id="fmriBudget">
+            <div id="fmriBudget", style="display: none;">
                 fMRI budget ($):
-                <input type="number" id="fmribudget" name="fmribudget" placeholder="100000"> <button
+                <input type="number" id="fmribudget" name="fmribudget" value="1000000"> <button
                     class="popup-button">
                     <div class="popup">Calculate prediction accuracy based on the amount of money allocated for the fMRI
                         portion of the study.</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button>
             </div>
-            <div id="targetAcc" , style="display: none;">
+            <div id="targetAcc">
                 Target accuracy (normalized):
-                <input type="number" id="fmriacc" name="target_acc" placeholder="0.5"> <button class="popup-button">
+                <input type="number" id="fmriacc" name="target_acc" value="0.95"> <button class="popup-button">
                     <div class="popup">Calculate fMRI budget needed to achieve the target prediction accuracy
                         (normalized to the theoretically highest accuracy)</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
@@ -169,7 +169,7 @@
             <h2>2. Total fMRI time range</h2>
             <p>
                 Minimum fMRI (mins):
-                <input type="number" id="minT" name="minT" placeholder="1"> <button class="popup-button">
+                <input type="number" id="minT" name="minT" value="1"> <button class="popup-button">
                     <div class="popup">The minimum amount of fMRI data needed for the study. For example, in the case of
                         scanning kids, this value should be set higher as more frames will likely be discared (for
                         instance, due to higher motion) as compared to adults.</div><span class="question-icon"><i
@@ -178,7 +178,7 @@
             </p>
             <p>
                 Maximum fMRI (mins):
-                <input type="number" id="maxT" name="maxT" placeholder="200"> <button class="popup-button">
+                <input type="number" id="maxT" name="maxT" value="200"> <button class="popup-button">
                     <div class="popup"> The amount of fMRI data after which researchers find additional scan time
                         unnecessary.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span>
                 </button>
@@ -187,7 +187,7 @@
             <h2>3. MRI and manpower costs</h2>
             <p>
                 Time quantum (mins):
-                <input type="number" id="ScanItvl" name="ScanItvl" placeholder="1"> <button class="popup-button">
+                <input type="number" id="ScanItvl" name="ScanItvl" value="1"> <button class="popup-button">
                     <div class="popup"> The smallest time interval at which the MRI center charges the researcher (e.g.,
                         15 min, 30 min or 1 hour).</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
@@ -195,7 +195,7 @@
             </p>
             <p>
                 MRI cost per time quantum ($):
-                <input type="number" id="CostTime" name="CostTime" placeholder="8.333"> <button class="popup-button">
+                <input type="number" id="CostTime" name="CostTime" value="8.333"> <button class="popup-button">
                     <div class="popup"> This includes how much MRI provider charges PLUS manpower costs (e.g., costs of
                         hiring research assistants).</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
@@ -206,7 +206,7 @@
             <h2>4. Participant scan time constraints of a session</h2>
             <p>
                 Maximum session tolerance (mins):
-                <input type="number" id="maxS" name="maxS" placeholder="300"> <button class="popup-button">
+                <input type="number" id="maxS" name="maxS" value="300"> <button class="popup-button">
                     <div class="popup"> The upper limit of how long participants could tolerate in the scanner. This
                         value varies depending on the population studied.</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
@@ -224,7 +224,7 @@
             <h2>5. Overhead MRI time</h2>
             <p>
                 One-time (mins):
-                <input type="number" id="otScanTime" name="otScanTime" placeholder="0"> <button class="popup-button">
+                <input type="number" id="otScanTime" name="otScanTime" value="0"> <button class="popup-button">
                     <div class="popup"> Overhead time incurred only for the first session due to other sequences
                         collected or other one-time MRI scanning events (e.g., body imaging, practice scan to
                         acclimatize participant). </div><span class="question-icon"><i
@@ -233,7 +233,7 @@
             </p>
             <p>
                 Per-session (mins):
-                <input type="number" id="psScanTime" name="psScanTime" placeholder="0"> <button class="popup-button">
+                <input type="number" id="psScanTime" name="psScanTime" value="0"> <button class="popup-button">
                     <div class="popup"> Overhead time due to unavoidable setup for each scan session (e.g., participant
                         setup).</div><span class="question-icon"><i class="fas fa-circle-question"></i></span>
                 </button>
@@ -242,7 +242,7 @@
             <h2>6. Overhead non-MRI cost</h2>
             <p>
                 Per participant ($):
-                <input type="number" id="PptCost" name="PptCost" placeholder="500"> <button class="popup-button">
+                <input type="number" id="PptCost" name="PptCost" value="500"> <button class="popup-button">
                     <div class="popup"> Costs related to participants recruitment/consent, collecting other non-imaging
                         tests (e.g., blood markers) and/or non-MRI imaging tests (e.g., PET). Other costs such as mock
                         scanner practice for children can be included here.</div><span class="question-icon"><i
@@ -251,7 +251,7 @@
             </p>
             <p>
                 Per session ($):
-                <input type="number" id="SsnCost" name="SsnCost" placeholder="0"> <button class="popup-button">
+                <input type="number" id="SsnCost" name="SsnCost" value="0"> <button class="popup-button">
                     <div class="popup"> Costs inccured for each scan sesion (e.g., time and effort to coordinate with
                         participants, pre-scan safety checks, data transfer to database etc).</div><span
                         class="question-icon"><i class="fas fa-circle-question"></i></span>
@@ -264,7 +264,7 @@
 
         <!-- Results -->
         <div class="tab-content" id="results-container">
-            <div id="fixed_budget_calculator">
+            <div id="fixed_budget_calculator", style="display: none;">
                 <div class="flex-container">
                     <div id="AccGraph" class="left"></div>
                 </div>
@@ -293,7 +293,7 @@
                 </div>
             </div>
 
-            <div id="fixed_acc_calculator" , style="display: none;">
+            <div id="fixed_acc_calculator">
                 <div class="flex-container">
                     <div id="BudgetGraph" class="left"></div>
                 </div>
