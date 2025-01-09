@@ -55,8 +55,7 @@
                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
             </head>
             Phenotype prediction accuracy estimation method: <button class="popup-button">
-                <div class="popup">Method of which to calculate estimate accuracy. Can either take parameters that were
-                    estimated from the average over a set of phenotypes in the paper, or enter your parameters.</div>
+                <div class="popup">Method used to calculate the estimated accuracy.</div>
                 <span class="question-icon"><i class="fas fa-circle-question"></i></span>
             </button>
             <select id="r_order">
@@ -146,11 +145,11 @@
                     <option value="fixed_acc" selected>Fixed accuracy</option>
                 </select>
             </p>
-            <div id="fmriBudget", style="display: none;">
+            <div id="fmriBudget" , style="display: none;">
                 fMRI budget ($):
-                <input type="number" id="fmribudget" name="fmribudget" value="1000000"> <button
-                    class="popup-button">
-                    <div class="popup">Calculate prediction accuracy based on the amount of money allocated for the fMRI
+                <input type="number" id="fmribudget" name="fmribudget" value="1000000"> <button class="popup-button">
+                    <div class="popup">Calculate the prediction accuracy based on the amount of money allocated for the
+                        fMRI
                         portion of the study.</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button>
@@ -158,8 +157,8 @@
             <div id="targetAcc">
                 Target accuracy (normalized):
                 <input type="number" id="fmriacc" name="target_acc" value="0.8"> <button class="popup-button">
-                    <div class="popup">Calculate fMRI budget needed to achieve the target prediction accuracy
-                        (normalized to the theoretically highest accuracy)</div><span class="question-icon"><i
+                    <div class="popup">Calculate the fMRI budget required to achieve the target prediction accuracy
+                        (normalized to the theoretically highest value)</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button>
             </div>
@@ -168,16 +167,16 @@
             <hr class="section-divider">
             <h2>2. Total fMRI time range</h2>
             <p>
-                Minimum fMRI (mins):
+                Minimum (mins):
                 <input type="number" id="minT" name="minT" value="1"> <button class="popup-button">
-                    <div class="popup">The minimum amount of fMRI data needed for the study. For example, in the case of
-                        scanning kids, this value should be set higher as more frames will likely be discared (for
-                        instance, due to higher motion) as compared to adults.</div><span class="question-icon"><i
+                    <div class="popup">The minimum amount of fMRI data needed for the study. In the case of
+                        scanning kids, this value might be higher as more frames will likely be discared (e.g., due to
+                        higher motion) as compared to adults.</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button>
             </p>
             <p>
-                Maximum fMRI (mins):
+                Maximum (mins):
                 <input type="number" id="maxT" name="maxT" value="200"> <button class="popup-button">
                     <div class="popup"> The amount of fMRI data after which researchers find additional scan time
                         unnecessary.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span>
@@ -188,15 +187,15 @@
             <p>
                 Time quantum (mins):
                 <input type="number" id="ScanItvl" name="ScanItvl" value="1"> <button class="popup-button">
-                    <div class="popup"> The smallest time interval at which the MRI center charges the researcher (e.g.,
-                        15 min, 30 min or 1 hour).</div><span class="question-icon"><i
+                    <div class="popup"> The smallest time interval at which the MRI provider charges the researcher (e.g.,
+                        15 min, 30 min or 60 min).</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button>
             </p>
             <p>
                 MRI cost per time quantum ($):
                 <input type="number" id="CostTime" name="CostTime" value="8.333"> <button class="popup-button">
-                    <div class="popup"> This includes how much MRI provider charges PLUS manpower costs (e.g., costs of
+                    <div class="popup"> This includes how much MRI provider charges + manpower costs (e.g., costs of
                         hiring research assistants).</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button>
@@ -225,8 +224,8 @@
             <p>
                 One-time (mins):
                 <input type="number" id="otScanTime" name="otScanTime" value="0"> <button class="popup-button">
-                    <div class="popup"> Overhead time incurred only for the first session due to other sequences
-                        collected or other one-time MRI scanning events (e.g., body imaging, practice scan to
+                    <div class="popup"> Overhead time incurred only for the first session due to colleting other sequences
+                        and/or other one-time MRI scanning events (e.g., body imaging, practice scan to
                         acclimatize participant). </div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button>
@@ -264,7 +263,7 @@
 
         <!-- Results -->
         <div class="tab-content" id="results-container">
-            <div id="fixed_budget_calculator", style="display: none;">
+            <div id="fixed_budget_calculator" , style="display: none;">
                 <div class="flex-container">
                     <div id="AccGraph" class="left"></div>
                 </div>
@@ -284,7 +283,7 @@
                             id="TrainingPerc">90</span>% ~ <span id="TrainN">1</span> participants <button
                             class="popup-button">
                             <div class="popup"> The proprotion of participants used to train a BWAS model. Default value
-                                is set to 90% to account for attrition or cross-validation. This is the actual sample
+                                is set to 90% to account for attrition or cross-validation. This value is the actual sample
                                 size used to compute the % max prediction accuracy.</div><span class="question-icon"><i
                                     class="fas fa-circle-question"></i></span>
                         </button></p>
@@ -313,7 +312,7 @@
                             id="TrainingPerc_FA">90</span>% ~ <span id="TrainN_FA">1</span> participants <button
                             class="popup-button">
                             <div class="popup"> The proprotion of participants used to train a BWAS model. Default value
-                                is set to 90% to account for attrition or cross-validation. This is the actual sample
+                                is set to 90% to account for attrition or cross-validation. This value is the actual sample
                                 size used to compute the % max prediction accuracy.</div><span class="question-icon"><i
                                     class="fas fa-circle-question"></i></span>
                         </button></p>
