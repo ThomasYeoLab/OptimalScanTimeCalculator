@@ -880,7 +880,7 @@ function plotLinePlot(LineEl, x_vec, y_vec, pt, mode) {
 }
 
 // ------ 6. Functions to update page ------------------------------
-function getBudgetParams() {
+function getBudgetParams(auto_optimal) {
     // load function values from fixed_budget calculator form
     let budgetValue = budget_El.value || budget_El.placeholder;
     let maxTValue = maxT_El.value || maxT_El.placeholder;
@@ -962,6 +962,10 @@ function getBudgetParams() {
                         U_vec, RC_vec, parseFloat(maxAcc_loc), budgetValue, CostTimeValue,
                         ScanItvlValue, psScanTimeValue, otScanTimeValue, PptCostValue, SsnCostValue)
                 });
+
+                if (auto_optimal == 1) {
+                    G2OptimaEl.click();
+                }
             });
     }
 }
@@ -993,7 +997,7 @@ function updateLinePlotPosition_fixed_acc(budget_vec, actual_acc_vec, N_vec, T_v
         N_vec, T_vec, S_vec, SD_vec, U_vec, plot_pos, budget_vec.indexOf(minBudget))
 }
 
-function getAccParams() {
+function getAccParams(auto_optimal) {
     // load function values from fixed_acc calculator form
     let accValue = acc_El.value || acc_El.placeholder;
     let maxTValue = maxT_El.value || maxT_El.placeholder;
@@ -1070,6 +1074,10 @@ function getAccParams() {
                         U_vec, parseFloat(minBudget_loc), CostTimeValue,
                         ScanItvlValue, psScanTimeValue, otScanTimeValue, PptCostValue, SsnCostValue)
                 });
+
+                if (auto_optimal == 1) {
+                    G2Optima_FA_El.click();
+                }
             }
             );
     }
@@ -1159,9 +1167,11 @@ document.addEventListener("DOMContentLoaded", function () {
             showContainer(containerId);
             if (containerId === 'results') {
                 if (selectedOption == 'fixed_budget') {
-                    getBudgetParams();
+                    var auto_optimal = 1;
+                    getBudgetParams(auto_optimal);
                 } else if (selectedOption == 'fixed_acc') {
-                    getAccParams();
+                    var auto_optimal = 1;
+                    getAccParams(auto_optimal);
                 }
             }
         });
@@ -1383,13 +1393,15 @@ CalcBudg_El.addEventListener("click", getBudgetParams);
 TrainrangeEl.addEventListener('input', function () {
     // Update the span text with the current value of the range input
     TrainPercEl.textContent = this.value;
-    getBudgetParams();
+    var auto_optimal = 0;
+    getBudgetParams(auto_optimal);
 });
 
 Trainrange_FA_El.addEventListener('input', function () {
     // Update the span text with the current value of the range input
     TrainPerc_FA_El.textContent = this.value;
-    getAccParams();
+    var auto_optimal = 0;
+    getAccParams(auto_optimal);
 });
 // pre-select phenotypes
 document.addEventListener("DOMContentLoaded", function () {

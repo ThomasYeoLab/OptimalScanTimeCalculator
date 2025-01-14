@@ -29,7 +29,8 @@
             <h1>Budget and Scan Billing Calculator</h1>
             <p> This calculator provides the optimal scan time considering the fMRI time range, provider constraints and
                 other overhead costs. Hover over each input for a more detailed description of what to enter. Default
-                values are used if no values are entered for a particular box.</p>
+                values are used if no values are entered for a particular box. This site is best viewed with the Google
+                Chrome browser.</p>
         </div>
 
         <div class="tabs-container">
@@ -187,7 +188,8 @@
             <p>
                 Time quantum (mins):
                 <input type="number" id="ScanItvl" name="ScanItvl" value="1"> <button class="popup-button">
-                    <div class="popup"> The smallest time interval at which the MRI provider charges the researcher (e.g.,
+                    <div class="popup"> The smallest time interval at which the MRI provider charges the researcher
+                        (e.g.,
                         15 min, 30 min or 60 min).</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button>
@@ -224,7 +226,8 @@
             <p>
                 One-time (mins):
                 <input type="number" id="otScanTime" name="otScanTime" value="0"> <button class="popup-button">
-                    <div class="popup"> Overhead time incurred only for the first session due to colleting other sequences
+                    <div class="popup"> Overhead time incurred only for the first session due to colleting other
+                        sequences
                         and/or other one-time MRI scanning events (e.g., body imaging, practice scan to
                         acclimatize participant). </div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
@@ -283,7 +286,8 @@
                             id="TrainingPerc">90</span>% ~ <span id="TrainN">1</span> participants <button
                             class="popup-button">
                             <div class="popup"> The proprotion of participants used to train a BWAS model. Default value
-                                is set to 90% to account for attrition or cross-validation. This value is the actual sample
+                                is set to 90% to account for attrition or cross-validation. This value is the actual
+                                sample
                                 size used to compute the % max prediction accuracy.</div><span class="question-icon"><i
                                     class="fas fa-circle-question"></i></span>
                         </button></p>
@@ -312,7 +316,8 @@
                             id="TrainingPerc_FA">90</span>% ~ <span id="TrainN_FA">1</span> participants <button
                             class="popup-button">
                             <div class="popup"> The proprotion of participants used to train a BWAS model. Default value
-                                is set to 90% to account for attrition or cross-validation. This value is the actual sample
+                                is set to 90% to account for attrition or cross-validation. This value is the actual
+                                sample
                                 size used to compute the % max prediction accuracy.</div><span class="question-icon"><i
                                     class="fas fa-circle-question"></i></span>
                         </button></p>
