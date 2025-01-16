@@ -80,10 +80,25 @@
                             </th>
                             <th>
                                 Analysis Type <button class="popup-button">
-                                    <div class="popup">Method used to construct the functional connectivity (FC)
-                                        matrices</div><span class="question-icon"><i
-                                            class="fas fa-circle-question"></i></span>
-                                    </button>
+                                    <div class="popup-wide">Method used to construct the functional connectivity (FC)
+                                        matrices. 
+                                        <ul>
+                                        <li> <b>whole brain, original</b>: 419x419 whole brain (400 cortical + 19 subcortical
+                                        regions) FC with the original run order (i.e. run 1, run 2, run 3, etc.) </li><br>
+                                        <li> <b>whole brain, randomized</b>: 419x419 whole brain FC with randomized run order
+                                        (e.g. run 2, run 3, run 1, etc.) </li><br>
+                                        <li> <b>subcortex-cortex, original</b>: 19x419 subcortical-cortical FC with the original
+                                        run order </li><br>
+                                        <li> <b>whole brain, high resolution, original</b>: 1019x1019 whole brain (1000 cortical +
+                                        19 subcortical regions) FC with the original run order </li><br>
+                                        <li> <b>two session</b>: 419x419 whole brain FC with the original run order and equal
+                                        amounts of data from day 1 and day 2 [Note that this only applies to certain
+                                        phenotypes from the HCP dataset] </li>
+                                        </ul>
+                                    </div><span class="question-icon">
+                                        <i class="fas fa-circle-question"></i>
+                                    </span>
+                                </button>
                                 <span class="dropdown-icon"
                                     onclick="toggleDropdown('analysis-dropdown', 3)">&#x25BC</span>
                                 <div class="dropdown-content" id="analysis-dropdown">
@@ -116,8 +131,8 @@
             </div>
             <div class="button-container" id="PhenTable_buttons">
                 <button class="button" onclick="clearAllSelections()">Deselect all</button>
-                <button class="next-tab-button" onclick="selectOoi2024_phenotypes(0, 122)">Select all datasets (original
-                    run order) + task phenotypes</button>
+                <button class="next-tab-button" onclick="selectOoi2024_phenotypes(0, 122)">Select all datasets (whole
+                    brain, original) phenotypes</button>
             </div>
 
             <div id="KFields" style="display: none;">
