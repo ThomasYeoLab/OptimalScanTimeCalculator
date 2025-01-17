@@ -7,6 +7,7 @@ for i = 1:500
     N(i,1) = a^(b+i-1);
 end
 N = flip(round(N));
+N(333) = 1000;
 if length(unique(N)) ~= 500
     disp('repeated N!')
     return
