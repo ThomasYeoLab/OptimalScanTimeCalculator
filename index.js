@@ -182,7 +182,7 @@ function createContourPlot(N_actual, T, r) {
     N = 0.9 * N;
     const T_element = document.getElementById("scan_time");
     T = T_element.value || T_element.placeholder;
-    filePath = 'https://raw.githubusercontent.com/leonoqr/ORSP_Calculator/main/CBIG_ME_TheoreticalModel_Params.xlsx';
+    filePath = 'https://raw.githubusercontent.com/ThomasYeoLab/OptimalScanTimeCalculator/main/CBIG_ME_TheoreticalModel_Params.xlsx';
     promises.push(fetchAccuracyData(filePath, N, T));
     return Promise.all(promises).then(() => {
         // After all promises are resolved, return the result

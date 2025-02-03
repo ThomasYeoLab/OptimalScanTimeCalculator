@@ -308,7 +308,7 @@ function compute_budget(accValue, maxTValue, minTValue, ScanItvlValue,
             U_vec.push(unusedTime);
         }
     } else {
-        filePath = 'https://raw.githubusercontent.com/leonoqr/ORSP_Calculator/main/CBIG_ME_TheoreticalModel_Params.xlsx';
+        filePath = 'https://raw.githubusercontent.com/ThomasYeoLab/OptimalScanTimeCalculator/main/CBIG_ME_TheoreticalModel_Params.xlsx';
         promises.push(fetchAccuracyData(filePath, minTValue, maxTValue, accValue));
     };
 
@@ -442,7 +442,7 @@ function getOptimalParams(budgetValue, maxTValue, minTValue, ScanItvlValue,
             acc_vec.push(calcAcc(val1, val2, val3, num_Ppt, fMRITime));
             normacc_vec.push(calcNormAcc(val2, val3, num_Ppt, fMRITime));
         } else {
-            filePath = 'https://raw.githubusercontent.com/leonoqr/ORSP_Calculator/main/CBIG_ME_TheoreticalModel_Params.xlsx';
+            filePath = 'https://raw.githubusercontent.com/ThomasYeoLab/OptimalScanTimeCalculator/main/CBIG_ME_TheoreticalModel_Params.xlsx';
             promises.push(fetchAccuracyData(filePath, num_Ppt, fMRITime));
         };
         // save values into vectors
