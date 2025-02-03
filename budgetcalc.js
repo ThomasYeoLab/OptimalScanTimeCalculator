@@ -37,7 +37,7 @@ const TrainNEl = document.getElementById('TrainN');
 const TrainN_FA_El = document.getElementById('TrainN_FA');
 const G2OptimaEl = document.getElementById('G2Optima');
 const G2Optima_FA_El = document.getElementById('G2Optima_FA');
-const filePath = 'https://raw.githubusercontent.com/leonoqr/ORSP_Calculator/main/CBIG_ME_TheoreticalModel_Params.xlsx';
+const filePath = 'https://raw.githubusercontent.com/ThomasYeoLab/OptimalScanTimeCalculator/main/CBIG_ME_TheoreticalModel_Params.xlsx';
 var ownAccRes = document.getElementById('ownAccresult');
 
 // ------ 1. Functions to calculate accuracy and reliability -------

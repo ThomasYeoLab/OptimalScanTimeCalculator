@@ -1,5 +1,5 @@
     async function loadXLSXFile() {
-        url = 'https://raw.githubusercontent.com/leonoqr/ORSP_Calculator/main/contour_plot.xlsx';
+        url = 'https://raw.githubusercontent.com/ThomasYeoLab/OptimalScanTimeCalculator/main/contour_plot.xlsx';
         try {
             // Fetch the file
             const response = await fetch(url);
