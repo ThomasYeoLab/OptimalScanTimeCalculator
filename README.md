@@ -1,4 +1,4 @@
-# ORSP Calculator
+# Ooi2025 Optimal Scan Time Calculator
 
 ## Reference
 Ooi LQR*, Orban C*, Zhang S*, Nichols TE, ..., Yeo BTT. [MRI economics: Balancing sample size and scan duration in brain wide association studies](https://www.biorxiv.org/content/10.1101/2024.02.16.580448v1). bioRxiv, 2024. 
