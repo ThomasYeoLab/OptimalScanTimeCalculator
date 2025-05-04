@@ -637,11 +637,32 @@ input[type="number"] {
   overflow-wrap: break-word; 
 }
 
+.popup-K-values {
+  display: none;             /* Hidden by default */
+  position: absolute;
+  top: 40px;                  /* Position it below the button */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 380px;
+  padding: 15px;
+  background-color: #333;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  text-align: left;
+  z-index: 10;
+  overflow-wrap: break-word; 
+}
+
 /* Show pop-up on button hover */
 .popup-button:hover .popup {
   display: block;
 }
 .popup-button:hover .popup-wide {
+  display: block;
+}
+.popup-button:hover .popup-K-values {
   display: block;
 }
 

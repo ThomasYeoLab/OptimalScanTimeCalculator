@@ -58,12 +58,9 @@
                 <link rel="stylesheet"
                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
             </head>
-            Phenotype prediction accuracy estimation method: <button class="popup-button">
-                <div class="popup">Method used to calculate the estimated accuracy.</div>
-                <span class="question-icon"><i class="fas fa-circle-question"></i></span>
-            </button>
+            What method should be used to estimate phenotype prediction accuracy?
             <select id="r_order">
-                <option value="original">Average over selected phenotypes</option>
+                <option value="original">Average across selected phenotypes</option>
                 <option value="own">Enter your own K0, K1 and K2 values</option>
             </select>
             <!-- Table of values -->
@@ -87,7 +84,7 @@
                                         matrices. 
                                         <ul>
                                         <li> <b>whole brain, original</b>: 419x419 whole brain (400 cortical + 19 subcortical
-                                        regions) FC with the original run order (i.e. run 1, run 2, run 3, etc.) </li><br>
+                                        regions) FC with the original run order (i.e. run 1, run 2, run 3, etc.) [<b>Recommended</b>]</li><br>
                                         <li> <b>whole brain, randomized</b>: 419x419 whole brain FC with randomized run order
                                         (e.g. run 2, run 3, run 1, etc.) </li><br>
                                         <li> <b>subcortex-cortex, original</b>: 19x419 subcortical-cortical FC with the original
@@ -115,14 +112,15 @@
                                 </div>
                             </th>
                             <th>K0 <button class="popup-button">
-                                    <div class="popup">Prediction accuracy (Pearson's Correlation) can be expressed as a
-                                        function of sample size N and scan time T. K0 is the maximum possible accuracy
-                                        (given infinite sample size and scan time). K1 and K2 provide the tradeoff
-                                        between sample size N and scan time T. A larger value of K1 (relative to K2)
-                                        indicates that sample size is important than scan time. On the other hand, a
+                                    <div class="popup-K-values">Prediction accuracy (Pearson's Correlation) can be expressed as a function of sample size N and scan time T. <br><br>
+                                        <ur>
+                                            <li> K0 is the maximum possible accuracy (given infinite sample size and scan time). </li><br>
+                                            <li> K1 and K2 provide the tradeoff between sample size N and scan time T. </li><br>
+                                            <li> A larger value of K1 (relative to K2) indicates that sample size is important than scan time in determining the prediciton accuracy. On the other hand, a
                                         larger value of K2 (relative to K1) indicates that sample size and scan time are
-                                        more interchangeable. See 'Formula' tab for more details.</div><span
-                                        class="question-icon"><i class="fas fa-circle-question"></i></span>
+                                        more interchangeable. See 'Formula' tab for more details. </li>
+                                        </ur>
+                                    </div><span class="question-icon"><i class="fas fa-circle-question"></i></span>
                                 </button></th>
                             <th>K1</th>
                             <th>K2</th>
@@ -140,12 +138,14 @@
 
             <div id="KFields" style="display: none;">
                 <p>Enter K values: <button class="popup-button">
-                        <div class="popup">Prediction accuracy (Pearson's Correlation) can be expressed as a function of
-                            sample size N and scan time T. K0 is the maximum possible accuracy (given infinite sample
-                            size and scan time). K1 and K2 provide the tradeoff between sample size N and scan time T. A
-                            larger value of K1 (relative to K2) indicates that sample size is important than scan time.
-                            On the other hand, a larger value of K2 (relative to K1) indicates that sample size and scan
-                            time are more interchangeable. See 'Formula' tab for more details.</div><span
+                        <div class="popup-K-values">Prediction accuracy (Pearson's Correlation) can be expressed as a function of sample size N and scan time T. <br><br>
+                            <ur>
+                                <li> K0 is the maximum possible accuracy (given infinite sample size and scan time). </li><br>
+                                <li> K1 and K2 provide the tradeoff between sample size N and scan time T. </li><br>
+                                <li> A larger value of K1 (relative to K2) indicates that sample size is important than scan time in determining the prediciton accuracy. On the other hand, a
+                            larger value of K2 (relative to K1) indicates that sample size and scan time are
+                            more interchangeable. See 'Formula' tab for more details. </li>
+                            </ur></div><span
                             class="question-icon"><i class="fas fa-circle-question"></i></span>
                     </button>
                     <input type="number" id="BudgK0" placeholder="K0">
@@ -173,15 +173,14 @@
                 <input type="number" id="fmribudget" name="fmribudget" value="1000000"> <button class="popup-button">
                     <div class="popup">Calculate the prediction accuracy based on the amount of money allocated for the
                         fMRI
-                        portion of the study.</div><span class="question-icon"><i
+                        portion of the study. The optimum is the point at which the prediction accuracy is at its maximum.</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button>
             </div>
             <div id="targetAcc">
                 Target accuracy (normalized):
                 <input type="number" id="fmriacc" name="target_acc" value="0.8"> <button class="popup-button">
-                    <div class="popup">Calculate the fMRI budget required to achieve the target prediction accuracy
-                        (normalized to the theoretically highest value)</div><span class="question-icon"><i
+                    <div class="popup">Estimate the fMRI budget needed to reach a target prediction accuracy (normalized to the theoretical maximum). For example, a value of 0.8 indicates that the prediction model is expected to achieve, on average, 80% of the highest possible accuracy across the phenotypes considered. The optimum is the point at which the budget is at its minimum.</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button>
             </div>
@@ -201,8 +200,7 @@
             <p>
                 Maximum (mins):
                 <input type="number" id="maxT" name="maxT" value="200"> <button class="popup-button">
-                    <div class="popup"> The amount of fMRI data after which researchers find additional scan time
-                        unnecessary.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span>
+                    <div class="popup"> The amount of fMRI data beyond which additional scan time is considered unnecessary by researchers.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span>
                 </button>
             </p>
             <hr class="section-divider">
@@ -210,7 +208,7 @@
             <p>
                 Time quantum (mins):
                 <input type="number" id="ScanItvl" name="ScanItvl" value="1"> <button class="popup-button">
-                    <div class="popup"> The smallest time interval at which the MRI provider charges the researcher
+                    <div class="popup"> The smallest time interval for which the MRI provider charges the researcher.
                         (e.g.,
                         15 min, 30 min or 60 min).</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
@@ -226,11 +224,11 @@
             </p>
 
             <hr class="section-divider">
-            <h2>4. Participant scan time constraints of a session</h2>
+            <h2>4. Participant scan time constraints for one session</h2>
             <p>
                 Maximum session tolerance (mins):
                 <input type="number" id="maxS" name="maxS" value="300"> <button class="popup-button">
-                    <div class="popup"> The upper limit of how long participants could tolerate in the scanner. This
+                    <div class="popup"> The maximum duration participants are able to tolerate in the scanner. This
                         value varies depending on the population studied.</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button>
@@ -248,10 +246,7 @@
             <p>
                 One-time (mins):
                 <input type="number" id="otScanTime" name="otScanTime" value="0"> <button class="popup-button">
-                    <div class="popup"> Overhead time incurred only for the first session due to colleting other
-                        sequences
-                        and/or other one-time MRI scanning events (e.g., body imaging, practice scan to
-                        acclimatize participant). </div><span class="question-icon"><i
+                    <div class="popup"> Overhead time incurred only during the first session for one-time MRI procedures such as acquiring additional sequences, body imaging, or practice scans to acclimate the participant. </div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button>
             </p>
@@ -277,7 +272,7 @@
                 Per session ($):
                 <input type="number" id="SsnCost" name="SsnCost" value="0"> <button class="popup-button">
                     <div class="popup"> Costs inccured for each scan sesion (e.g., time and effort to coordinate with
-                        participants, pre-scan safety checks, data transfer to database etc).</div><span
+                        participants, pre-scan safety checks, data transfer to database, etc).</div><span
                         class="question-icon"><i class="fas fa-circle-question"></i></span>
                 </button>
             </p>
