@@ -27,12 +27,14 @@
     <section id="budgetcalc">
         <div class="title-container">
             <h1>Budget and Scan Billing Calculator</h1>
-            <p> This calculator provides the optimal scan time considering the fMRI time range, provider constraints and
-                other overhead costs. Hover over each input for a more detailed description of what to enter. Default
-                values are used if no values are entered for a particular box.  
-                <br> 
+            <p> This calculator provides the optimal scan time based on the fMRI time range, MRI provider constraints
+                and
+                other overhead costs. Hover over each input for detailed descriptions. If no values are entered, default
+                settings will be applied.
                 <br>
-                <b>This site is best viewed with the Google Chrome browser. Some features may not work correctly on Firefox.</b>
+                <br>
+                <b>This site is best viewed with the Google Chrome browser. Some features may not work correctly on
+                    Firefox.</b>
             </p>
         </div>
 
@@ -58,6 +60,7 @@
                 <link rel="stylesheet"
                     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
             </head>
+            <br>
             What method should be used to estimate phenotype prediction accuracy?
             <select id="r_order">
                 <option value="original">Average across selected phenotypes</option>
@@ -81,19 +84,26 @@
                             <th>
                                 Analysis Type <button class="popup-button">
                                     <div class="popup-wide">Method used to construct the functional connectivity (FC)
-                                        matrices. 
+                                        matrices.
                                         <ul>
-                                        <li> <b>whole brain, original</b>: 419x419 whole brain (400 cortical + 19 subcortical
-                                        regions) FC with the original run order (i.e. run 1, run 2, run 3, etc.) [<b>Recommended</b>]</li><br>
-                                        <li> <b>whole brain, randomized</b>: 419x419 whole brain FC with randomized run order
-                                        (e.g. run 2, run 3, run 1, etc.) </li><br>
-                                        <li> <b>subcortex-cortex, original</b>: 19x419 subcortical-cortical FC with the original
-                                        run order </li><br>
-                                        <li> <b>whole brain, high resolution, original</b>: 1019x1019 whole brain (1000 cortical +
-                                        19 subcortical regions) FC with the original run order </li><br>
-                                        <li> <b>two session</b>: 419x419 whole brain FC with the original run order and equal
-                                        amounts of data from day 1 and day 2 [Note that this only applies to certain
-                                        phenotypes from the HCP dataset] </li>
+                                            <li> <b>whole brain, original</b>: 419x419 whole brain (400 cortical + 19
+                                                subcortical
+                                                regions) FC with the original run order (i.e. run 1, run 2, run 3, etc.)
+                                                [<b>Recommended</b>]</li><br>
+                                            <li> <b>whole brain, randomized</b>: 419x419 whole brain FC with randomized
+                                                run order
+                                                (e.g. run 2, run 3, run 1, etc.) </li><br>
+                                            <li> <b>subcortex-cortex, original</b>: 19x419 subcortical-cortical FC with
+                                                the original
+                                                run order </li><br>
+                                            <li> <b>whole brain, high resolution, original</b>: 1019x1019 whole brain
+                                                (1000 cortical +
+                                                19 subcortical regions) FC with the original run order </li><br>
+                                            <li> <b>two session</b>: 419x419 whole brain FC with the original run order
+                                                and equal
+                                                amounts of data from day 1 and day 2 [Note that this only applies to
+                                                certain
+                                                phenotypes from the HCP dataset] </li>
                                         </ul>
                                     </div><span class="question-icon">
                                         <i class="fas fa-circle-question"></i>
@@ -112,13 +122,19 @@
                                 </div>
                             </th>
                             <th>K0 <button class="popup-button">
-                                    <div class="popup-K-values">Prediction accuracy (Pearson's Correlation) can be expressed as a function of sample size N and scan time T. <br><br>
+                                    <div class="popup-K-values">Prediction accuracy (Pearson's Correlation) can be
+                                        expressed as a function of sample size N and scan time T. <br><br>
                                         <ur>
-                                            <li> K0 is the maximum possible accuracy (given infinite sample size and scan time). </li><br>
-                                            <li> K1 and K2 provide the tradeoff between sample size N and scan time T. </li><br>
-                                            <li> A larger value of K1 (relative to K2) indicates that sample size is important than scan time in determining the prediciton accuracy. On the other hand, a
-                                        larger value of K2 (relative to K1) indicates that sample size and scan time are
-                                        more interchangeable. See 'Formula' tab for more details. </li>
+                                            <li> K0 is the maximum possible accuracy (given infinite sample size and
+                                                scan time). </li><br>
+                                            <li> K1 and K2 provide the tradeoff between sample size N and scan time T.
+                                            </li><br>
+                                            <li> A larger value of K1 (relative to K2) indicates that sample size is
+                                                important than scan time in determining the prediciton accuracy. On the
+                                                other hand, a
+                                                larger value of K2 (relative to K1) indicates that sample size and scan
+                                                time are
+                                                more interchangeable. See 'Formula' tab for more details. </li>
                                         </ur>
                                     </div><span class="question-icon"><i class="fas fa-circle-question"></i></span>
                                 </button></th>
@@ -138,15 +154,18 @@
 
             <div id="KFields" style="display: none;">
                 <p>Enter K values: <button class="popup-button">
-                        <div class="popup-K-values">Prediction accuracy (Pearson's Correlation) can be expressed as a function of sample size N and scan time T. <br><br>
+                        <div class="popup-K-values">Prediction accuracy (Pearson's Correlation) can be expressed as a
+                            function of sample size N and scan time T. <br><br>
                             <ur>
-                                <li> K0 is the maximum possible accuracy (given infinite sample size and scan time). </li><br>
+                                <li> K0 is the maximum possible accuracy (given infinite sample size and scan time).
+                                </li><br>
                                 <li> K1 and K2 provide the tradeoff between sample size N and scan time T. </li><br>
-                                <li> A larger value of K1 (relative to K2) indicates that sample size is important than scan time in determining the prediciton accuracy. On the other hand, a
-                            larger value of K2 (relative to K1) indicates that sample size and scan time are
-                            more interchangeable. See 'Formula' tab for more details. </li>
-                            </ur></div><span
-                            class="question-icon"><i class="fas fa-circle-question"></i></span>
+                                <li> A larger value of K1 (relative to K2) indicates that sample size is important than
+                                    scan time in determining the prediciton accuracy. On the other hand, a
+                                    larger value of K2 (relative to K1) indicates that sample size and scan time are
+                                    more interchangeable. See 'Formula' tab for more details. </li>
+                            </ur>
+                        </div><span class="question-icon"><i class="fas fa-circle-question"></i></span>
                     </button>
                     <input type="number" id="BudgK0" placeholder="K0">
                     <input type="number" id="BudgK1" placeholder="K1">
@@ -173,15 +192,18 @@
                 <input type="number" id="fmribudget" name="fmribudget" value="1000000"> <button class="popup-button">
                     <div class="popup">Calculate the prediction accuracy based on the amount of money allocated for the
                         fMRI
-                        portion of the study. The optimum is the point at which the prediction accuracy is at its maximum.</div><span class="question-icon"><i
-                            class="fas fa-circle-question"></i></span>
+                        portion of the study. The optimum is the point at which the prediction accuracy is at its
+                        maximum.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span>
                 </button>
             </div>
             <div id="targetAcc">
                 Target accuracy (normalized):
                 <input type="number" id="fmriacc" name="target_acc" value="0.8"> <button class="popup-button">
-                    <div class="popup">Estimate the fMRI budget needed to reach a target prediction accuracy (normalized to the theoretical maximum). For example, a value of 0.8 indicates that the prediction model is expected to achieve, on average, 80% of the highest possible accuracy across the phenotypes considered. The optimum is the point at which the budget is at its minimum.</div><span class="question-icon"><i
-                            class="fas fa-circle-question"></i></span>
+                    <div class="popup">Estimate the fMRI budget needed to reach a target prediction accuracy (normalized
+                        to the theoretical maximum). For example, a value of 0.8 indicates that the prediction model is
+                        expected to achieve, on average, 80% of the highest possible accuracy across the phenotypes
+                        considered. The optimum is the point at which the budget is at its minimum.</div><span
+                        class="question-icon"><i class="fas fa-circle-question"></i></span>
                 </button>
             </div>
 
@@ -200,7 +222,9 @@
             <p>
                 Maximum (mins):
                 <input type="number" id="maxT" name="maxT" value="200"> <button class="popup-button">
-                    <div class="popup"> The amount of fMRI data beyond which additional scan time is considered unnecessary by researchers.</div><span class="question-icon"><i class="fas fa-circle-question"></i></span>
+                    <div class="popup"> The amount of fMRI data beyond which additional scan time is considered
+                        unnecessary by researchers.</div><span class="question-icon"><i
+                            class="fas fa-circle-question"></i></span>
                 </button>
             </p>
             <hr class="section-divider">
@@ -246,8 +270,9 @@
             <p>
                 One-time (mins):
                 <input type="number" id="otScanTime" name="otScanTime" value="0"> <button class="popup-button">
-                    <div class="popup"> Overhead time incurred only during the first session for one-time MRI procedures such as acquiring additional sequences, body imaging, or practice scans to acclimate the participant. </div><span class="question-icon"><i
-                            class="fas fa-circle-question"></i></span>
+                    <div class="popup"> Overhead time incurred only during the first session for one-time MRI procedures
+                        such as acquiring additional sequences, body imaging, or practice scans to acclimate the
+                        participant. </div><span class="question-icon"><i class="fas fa-circle-question"></i></span>
                 </button>
             </p>
             <p>

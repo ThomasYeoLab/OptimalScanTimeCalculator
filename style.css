@@ -11,8 +11,8 @@ body {
 }
 
 img {
-    max-width: 100%;
-    height: auto; 
+  max-width: 100%;
+  height: auto;
 }
 
 /* menu bar settings */
@@ -50,12 +50,15 @@ img {
   background-color: #555;
 }
 
-.inline-div { display: inline-block; }
+.inline-div {
+  display: inline-block;
+}
 
 /* container settings */
 .container {
   width: 90%;
-  height: 85vh; /* % of the viewport height */
+  height: 85vh;
+  /* % of the viewport height */
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
@@ -64,13 +67,14 @@ img {
   border-radius: 5px;
   margin-top: 50px;
   margin-bottom: 0px;
-  word-wrap: break-word; 
-  overflow: auto; 
+  word-wrap: break-word;
+  overflow: auto;
 }
 
 .title-container {
   width: 80%;
-  height: vh; /* % of the viewport height */
+  height: vh;
+  /* % of the viewport height */
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
@@ -78,9 +82,10 @@ img {
   margin: 0 auto;
   border-radius: 5px;
   margin-top: 50px;
-  margin-bottom: 50px;
-  word-wrap: break-word; 
+  margin-bottom: 20px;
+  word-wrap: break-word;
 }
+
 .flex-container {
   width: 100%;
   height: 50%;
@@ -90,32 +95,42 @@ img {
 
 /* Left section for the AccGraph */
 .left {
-    flex: 0 0 100%; /* 70% of the width */  /* This will take up all available space on the left */
-    height: 100%; /* Full height */
+  flex: 0 0 100%;
+  /* 70% of the width */
+  /* This will take up all available space on the left */
+  height: 100%;
+  /* Full height */
 }
 
 /* Right section for the BudgetBar and TimeBar */
 .right {
-    display: flex;
-    flex-direction: column;  /* Stacks the BudgetBar and TimeBar vertically */
-    flex: 1;  /* Adjust the width ratio for the right section */
-    height: 100%; /* Ensure full height to match left side (if needed) */
+  display: flex;
+  flex-direction: column;
+  /* Stacks the BudgetBar and TimeBar vertically */
+  flex: 1;
+  /* Adjust the width ratio for the right section */
+  height: 100%;
+  /* Ensure full height to match left side (if needed) */
 }
 
 /* Styling for the bars on the right */
-#BudgetBar, #TimeBar {
-    height: auto;  /* Take half the height each */
+#BudgetBar,
+#TimeBar {
+  height: auto;
+  /* Take half the height each */
 }
 
 .tabs-container {
-    display: flex;
-    justify-content: center;
-    width: 100%; /* Ensure the tabs container takes up the full width */
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  /* Ensure the tabs container takes up the full width */
 }
 
 .short_container {
   width: 100%;
-  height: 40vh; /* % of the viewport height */
+  height: 40vh;
+  /* % of the viewport height */
   background-color: white;
   box-shadow: none;
   padding: 10px;
@@ -126,7 +141,8 @@ img {
 
 .third_container {
   width: 35%;
-  height: 90vh; /* % of the viewport height */
+  height: 90vh;
+  /* % of the viewport height */
   background-color: white;
   box-shadow: none;
   padding: 20px;
@@ -137,7 +153,8 @@ img {
 
 .half_container {
   width: 50%;
-  height: 90vh; /* % of the viewport height */
+  height: 90vh;
+  /* % of the viewport height */
   background-color: white;
   box-shadow: none;
   padding: 20px;
@@ -147,9 +164,9 @@ img {
 }
 
 .input-container label {
-    flex: 1;
-    text-align: left;
-    margin-right: 10px;
+  flex: 1;
+  text-align: left;
+  margin-right: 10px;
 }
 
 .single_container {
@@ -162,88 +179,102 @@ img {
 }
 
 .table-container {
-    width: 100%;
-    max-height: 500px;
-    letter-spacing: 0.01em;
-    word-spacing: 0.06em;
-    font-size: 16px;
-    overflow-y: scroll;
-    overflow-x: auto;
+  width: 100%;
+  max-height: 500px;
+  letter-spacing: 0.01em;
+  word-spacing: 0.06em;
+  font-size: 16px;
+  overflow-y: scroll;
+  overflow-x: auto;
 }
 
 #phenotype-table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-#phenotype-table th, #phenotype-table td {
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: left;
+#phenotype-table th,
+#phenotype-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
 }
 
 #phenotype-table th {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .dropdown-icon {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-    display: inline-block;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  display: inline-block;
 }
 
 .dropdown-content {
-    display: none; /* Hidden by default */
-    position: absolute; /* Positioned relative to the nearest positioned ancestor */
-    background-color: white; /* Background color */
-    min-width: 150px; /* Minimum width of the dropdown */
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Shadow effect */
-    z-index: 1; /* Stacking order */
-    padding: 10px; /* Padding for dropdown content */
+  display: none;
+  /* Hidden by default */
+  position: absolute;
+  /* Positioned relative to the nearest positioned ancestor */
+  background-color: white;
+  /* Background color */
+  min-width: 150px;
+  /* Minimum width of the dropdown */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  /* Shadow effect */
+  z-index: 1;
+  /* Stacking order */
+  padding: 10px;
+  /* Padding for dropdown content */
 }
 
 .dropdown-content label {
-    display: flex; /* Use flex for aligning checkbox and text */
-    align-items: center; /* Center vertically */
-    justify-content: flex-start; /* Align to the left */
-    margin: 5px 0; /* Spacing between items */
+  display: flex;
+  /* Use flex for aligning checkbox and text */
+  align-items: center;
+  /* Center vertically */
+  justify-content: flex-start;
+  /* Align to the left */
+  margin: 5px 0;
+  /* Spacing between items */
 }
 
 .dropdown-content label:hover {
-    background-color: #f1f1f1; /* Highlight effect on hover */
+  background-color: #f1f1f1;
+  /* Highlight effect on hover */
 }
 
 .dropdown-container {
-    display: flex; /* Align items in a row */
-    align-items: center; /* Center vertically */
-    position: relative; /* Needed for absolute positioning of dropdown */
+  display: flex;
+  /* Align items in a row */
+  align-items: center;
+  /* Center vertically */
+  position: relative;
+  /* Needed for absolute positioning of dropdown */
 }
 
 
 /* tab settings */
 .tabs {
-  align-items: center;
-  justify-content: center;
   display: flex;
   position: relative;
   background-color: #fff;
   box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3), 0 6px 12px 0 rgba(0, 0, 0, 0.3);
   padding: 0.75rem;
-  border-radius: 99px; /* just a high number to create pill effect */
-  width: 80%; 
-  margin-right: 15px;
+  border-radius: 99px;
+  /* just a high number to create pill effect */
+  width: 80%;
+
   * {
-        z-index: 2;
-    }
+    z-index: 2;
+  }
 }
 
 .tab {
   display: flex;
-  align-items: center;
   justify-content: center;
-  text-align: center; /* Center-align the text */
+  /* Center-align the text */
   height: 20px;
   width: 100%;
   font-size: 16px;
@@ -254,65 +285,81 @@ img {
 }
 
 .tab-content {
-    width: 80%;              /* Set the width of the tab content */
-    margin: 0 auto;          /* Center it horizontally */
-    visibility: hidden;   /* Hidden but still in the DOM */
-    opacity: 0;           /* Fully transparent */
-    transition: opacity 0.3s ease, visibility 0.3s ease, height 0.3s ease; /* Smooth transition */
-    height: 0;            /* Collapse height to 0 when hidden */
-    align-items: center;
-    justify-content: center;
+  width: 80%;
+  /* Set the width of the tab content */
+  margin: 0 auto;
+  /* Center it horizontally */
+  visibility: hidden;
+  /* Hidden but still in the DOM */
+  opacity: 0;
+  /* Fully transparent */
+  transition: opacity 0.3s ease, visibility 0.3s ease, height 0.3s ease;
+  /* Smooth transition */
+  height: 0;
+  /* Collapse height to 0 when hidden */
+  align-items: center;
+  justify-content: center;
 }
 
 .tab-content.active {
-    visibility: visible;  /* Make it visible */
-    opacity: 1;           /* Fully opaque */
-    height: 100%;         /* Expand height */
-    width: 80%;
-    margin: 0 auto;          /* Center it */
-    align-items: center;
-    justify-content: center;
+  visibility: visible;
+  /* Make it visible */
+  opacity: 1;
+  /* Fully opaque */
+  height: 100%;
+  /* Expand height */
+  width: 80%;
+  margin: 0 auto;
+  /* Center it */
+  align-items: center;
+  justify-content: center;
 }
 
 .glider {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%; /* Ensure it takes up the full height of the parent container */
-    background-color: rgba(139, 0, 0, 0.7); /* Dark red color */
-    z-index: 1;
-    border-radius: 50px; /* Create a pill shape */
-    transition: 0.25s ease-out; /* Smooth transition */
-    width: 0; /* Initial width to prevent the glider from disappearing */
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  /* Ensure it takes up the full height of the parent container */
+  background-color: rgba(139, 0, 0, 0.7);
+  /* Dark red color */
+  z-index: 1;
+  border-radius: 50px;
+  /* Create a pill shape */
+  transition: 0.25s ease-out;
+  /* Smooth transition */
+  width: 0;
+  /* Initial width to prevent the glider from disappearing */
 }
 
 input[type="radio"] {
   display: none;
 }
 
-input[type="radio"][id="Orig"]:checked ~ .glider {
-    transform: translateX(0);
+input[type="radio"][id="Orig"]:checked~.glider {
+  transform: translateX(0);
 }
 
-input[type="radio"][id="Random"]:checked ~ .glider {
-    transform: translateX(100%);
+input[type="radio"][id="Random"]:checked~.glider {
+  transform: translateX(100%);
 }
 
-input[type="radio"][id="NormAcc"]:checked ~ .glider {
-    transform: translateX(0);
+input[type="radio"][id="NormAcc"]:checked~.glider {
+  transform: translateX(0);
 }
 
-input[type="radio"][id="Acc"]:checked ~ .glider {
-    transform: translateX(100%);
+input[type="radio"][id="Acc"]:checked~.glider {
+  transform: translateX(100%);
 }
 
-input[type="radio"]:checked + label {
+input[type="radio"]:checked+label {
   color: #fff;
 }
 
 .container-area {
   width: 65%;
-  height: 90vh; /* % of the viewport height */
+  height: 90vh;
+  /* % of the viewport height */
   background-color: white;
   box-shadow: none;
   padding: 20px;
@@ -320,25 +367,25 @@ input[type="radio"]:checked + label {
   margin: 0 auto;
   border: 1px solid #ccc;
   border-radius: 1px;
-  border-top: none; 
+  border-top: none;
   border-bottom: none;
-  border-right: none; 
+  border-right: none;
   position: relative;
   z-index: 2;
   transition: background-color 0.3s;
 }
 
 .container-content {
-    display: flex;
+  display: flex;
 }
 
 .container-content h2 {
-    color: #333;
-    margin-bottom: 2px;
+  color: #333;
+  margin-bottom: 2px;
 }
 
 .container-content p {
-    color: #777;
+  color: #777;
 }
 
 .half-container {
@@ -350,9 +397,9 @@ input[type="radio"]:checked + label {
 /* input settings */
 
 .input-container input {
-    flex: 1;
-    width: auto;
-    margin-bottom: 5px;
+  flex: 1;
+  width: auto;
+  margin-bottom: 5px;
 }
 
 .form {
@@ -374,9 +421,10 @@ h2 {
 }
 
 .section-divider {
-    border: 1px solid #ddd; /* Adjust the border color */
-    margin-top: 5px;
-    margin-bottom: 15px;
+  border: 1px solid #ddd;
+  /* Adjust the border color */
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
 
 label {
@@ -390,42 +438,44 @@ input {
 }
 
 input[type="number"] {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 0; /* Non-rounded edges */
-    width: 100%;
-    max-width: 60px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  /* Non-rounded edges */
+  width: 100%;
+  max-width: 60px;
 
-    /* Chrome, Safari, Edge, Opera */
-    -webkit-appearance: none;
-    margin: 0;
+  /* Chrome, Safari, Edge, Opera */
+  -webkit-appearance: none;
+  margin: 0;
 
-    /* Firefox */
-    -moz-appearance: textfield;
+  /* Firefox */
+  -moz-appearance: textfield;
 }
 
 /* For Chrome, Safari, Edge, Opera */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* For Firefox */
 input[type="number"]::-moz-focus-inner {
-    border: 0;
+  border: 0;
 }
 
 /* For IE11 */
 input[type="number"]::-ms-clear,
 input[type="number"]::-ms-reveal {
-    display: none;
+  display: none;
 }
 
 input[type="range"] {
-    width: 100%;
-    display: block; 
+  width: 100%;
+  display: block;
 }
+
 .slider-container {
   display: flex;
   align-items: center;
@@ -440,8 +490,10 @@ input[type="range"] {
 }
 
 #plot {
-  margin-bottom: -10px; /* Move plot closer to sliders */
+  margin-bottom: -10px;
+  /* Move plot closer to sliders */
 }
+
 .contour-slider-container {
   display: flex;
   align-items: center;
@@ -453,32 +505,39 @@ input[type="range"] {
 .contour-slider-row {
   align-items: center;
   margin: 5px 20px;
-  justify-content: center; /* Center items horizontally */
+  justify-content: center;
+  /* Center items horizontally */
 }
 
 /* Styling for labels */
 .contour-slider-label {
-  white-space: nowrap; 
+  white-space: nowrap;
   margin-right: 5px;
-  width:200px;
+  width: 200px;
 }
+
 /* Z value display styling for the contour plot */
 #zValueDisplay {
-  margin-left: 15px; /* Space between Z display and sliders */
+  margin-left: 15px;
+  /* Space between Z display and sliders */
 }
 
 .button-container {
-    display: flex;              /* Enable flexbox */
-    justify-content: space-between; 
-    padding: 10px;            /* Optional: Add some spacing around the container */
+  display: flex;
+  /* Enable flexbox */
+  justify-content: space-between;
+  padding: 10px;
+  /* Optional: Add some spacing around the container */
 }
 
 .next-tab-button {
-    margin-left: auto; /* This ensures the button stays at the end */
+  margin-left: auto;
+  /* This ensures the button stays at the end */
 }
 
 .calculate-acc-button {
-  margin-right: auto; /* This ensures the button stays at the front */
+  margin-right: auto;
+  /* This ensures the button stays at the front */
 }
 
 button {
@@ -499,18 +558,23 @@ button:hover {
 .transparent-button {
   background-color: transparent;
   border: none;
-  color: #000; /* Change the text color as needed */
-  padding: 10px 10px; /* Adjust the padding as needed */
+  color: #000;
+  /* Change the text color as needed */
+  padding: 10px 10px;
+  /* Adjust the padding as needed */
   text-align: left;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px; /* Adjust the font size as needed */
+  font-size: 16px;
+  /* Adjust the font size as needed */
   cursor: pointer;
 }
 
 .transparent-button:hover {
-  background-color: #f0f0f0; /* Change the background color on hover */
+  background-color: #f0f0f0;
+  /* Change the background color on hover */
 }
+
 .more-text {
   display: none;
 }
@@ -522,69 +586,73 @@ button:hover {
 }
 
 #r_order {
-    font-size: 16px; /* Adjust the font size as needed */
-    width: 80%; 
-    margin-left: 10px;
+  font-size: 16px;
+  /* Adjust the font size as needed */
+  width: 30%;
+  margin-left: 10px;
 }
 
 #mode_select {
-  font-size: 16px; /* Adjust the font size as needed */
-  width: 20%; 
+  font-size: 16px;
+  /* Adjust the font size as needed */
+  width: 20%;
   margin-left: 10px;
 }
 
 /* Adjustments for smaller screens */
 @media (max-width: 1080px) {
 
-body {
+  body {
     font-size: 10px;
-}
+  }
 
-.menu-bar a {
+  .menu-bar a {
     font-size: 10px;
-}
+  }
 
-.section-divider {
-    border: 1px solid #ddd; /* Adjust the border color */
-    margin: 3px 0; /* Adjust the margin to control the space around the divider */
-}
+  .section-divider {
+    border: 1px solid #ddd;
+    /* Adjust the border color */
+    margin: 3px 0;
+    /* Adjust the margin to control the space around the divider */
+  }
 
 
-h1 {
-  font-size: 14px;
-}
+  h1 {
+    font-size: 14px;
+  }
 
-h2 {
-  font-size: 12px;
-  margin-bottom: 0px;
-}
+  h2 {
+    font-size: 12px;
+    margin-bottom: 0px;
+  }
 
-.transparent-button {
-    padding: 3px 3px; 
+  .transparent-button {
+    padding: 3px 3px;
     font-size: 10px;
-}
+  }
 
-#r_order {
-    font-size: 10px; 
-    width: 80%; 
+  #r_order {
+    font-size: 10px;
+    width: 80%;
     margin-left: 10px;
-}
+  }
 
-button {
-  background-color: #333;
-  color: white;
-  border: none;
-  padding: 3px 10px;
-  border-radius: 5px;
-  margin-top: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+  button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
 
-input[type="number"] {
+  input[type="number"] {
     width: 20px;
     height: 10px;
-}
+  }
 
 }
 
@@ -602,9 +670,11 @@ input[type="number"] {
 
 /* Pop-up window styling */
 .popup {
-  display: none;             /* Hidden by default */
+  display: none;
+  /* Hidden by default */
   position: absolute;
-  top: 40px;                  /* Position it below the button */
+  top: 40px;
+  /* Position it below the button */
   left: 50%;
   transform: translateX(-50%);
   width: 300px;
@@ -616,13 +686,15 @@ input[type="number"] {
   font-size: 14px;
   text-align: center;
   z-index: 10;
-  overflow-wrap: break-word; 
+  overflow-wrap: break-word;
 }
 
 .popup-wide {
-  display: none;             /* Hidden by default */
+  display: none;
+  /* Hidden by default */
   position: absolute;
-  top: 40px;                  /* Position it below the button */
+  top: 40px;
+  /* Position it below the button */
   left: 50%;
   transform: translateX(-50%);
   width: 550px;
@@ -634,13 +706,15 @@ input[type="number"] {
   font-size: 14px;
   text-align: left;
   z-index: 10;
-  overflow-wrap: break-word; 
+  overflow-wrap: break-word;
 }
 
 .popup-K-values {
-  display: none;             /* Hidden by default */
+  display: none;
+  /* Hidden by default */
   position: absolute;
-  top: 40px;                  /* Position it below the button */
+  top: 40px;
+  /* Position it below the button */
   left: 50%;
   transform: translateX(-50%);
   width: 380px;
@@ -652,57 +726,71 @@ input[type="number"] {
   font-size: 14px;
   text-align: left;
   z-index: 10;
-  overflow-wrap: break-word; 
+  overflow-wrap: break-word;
 }
 
 /* Show pop-up on button hover */
 .popup-button:hover .popup {
   display: block;
 }
+
 .popup-button:hover .popup-wide {
   display: block;
 }
+
 .popup-button:hover .popup-K-values {
   display: block;
 }
 
 /* Adjustments for phone screens */
 @media (max-width: 768px) {
-    .flex-container {
-        flex-direction: column; /* Stack elements on top of each other */
-        width: 100%; /* Full width on smaller screens */
-    }
+  .flex-container {
+    flex-direction: column;
+    /* Stack elements on top of each other */
+    width: 100%;
+    /* Full width on smaller screens */
+  }
 
-    .left, .right {
-        flex: 100%; /* Make each element take full width */
-    }
+  .left,
+  .right {
+    flex: 100%;
+    /* Make each element take full width */
+  }
 
-    /* Reduce font size on smaller screens */
-    .flex-container, .left, .right {
-        font-size: 0.8rem;
-    }
+  /* Reduce font size on smaller screens */
+  .flex-container,
+  .left,
+  .right {
+    font-size: 0.8rem;
+  }
 
-    .tab-container {
-        width: 50%; /* Reduce width for smaller screens */
-        padding: 10px; /* Adjust padding for smaller screens */
-    }
-    .tab {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center; /* Center-align the text */
-        height: 20px;
-        width: 50%;
-        font-size: 12px;
-        font-weight: 500;
-        border-radius: 99px; /* just a high number to create pill effect */
-        cursor: pointer;
-        transition: color 0.15s ease-in;
-    }
+  .tab-container {
+    width: 50%;
+    /* Reduce width for smaller screens */
+    padding: 10px;
+    /* Adjust padding for smaller screens */
+  }
+
+  .tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* Center-align the text */
+    height: 20px;
+    width: 50%;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 99px;
+    /* just a high number to create pill effect */
+    cursor: pointer;
+    transition: color 0.15s ease-in;
+  }
+
   button {
-      font-size: 0.7rem;
-      border: none;
-      padding: 3px 6px;
-      margin-top: 10px;
+    font-size: 0.7rem;
+    border: none;
+    padding: 3px 6px;
+    margin-top: 10px;
   }
 }

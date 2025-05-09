@@ -182,8 +182,8 @@ function compute_budget(accValue, maxTValue, minTValue, ScanItvlValue,
                         [normacc] = CalcExcelAcc(workbook, checkedRowIndices, n_mid, t, 'NormAcc');
                         [acc] = get_averages(normacc);
                         if (acc < 100 * parseFloat(accValue)) {
-                            [normacc] = CalcExcelAcc(workbook, checkedRowIndices, n_mid+1, t, 'NormAcc');
-                            acc =  normacc.length > 0 ? normacc.reduce((a, b) => a + b) / normacc.length : 0;
+                            [normacc] = CalcExcelAcc(workbook, checkedRowIndices, n_mid + 1, t, 'NormAcc');
+                            acc = normacc.length > 0 ? normacc.reduce((a, b) => a + b) / normacc.length : 0;
                             if (acc >= 100 * parseFloat(accValue)) {
                                 f = 1;
                                 n_mid = n_mid + 1;
@@ -191,8 +191,8 @@ function compute_budget(accValue, maxTValue, minTValue, ScanItvlValue,
                                 n_lo = n_mid + 1;
                             }
                         } else if (acc > 100 * parseFloat(accValue)) {
-                            [normacc] = CalcExcelAcc(workbook, checkedRowIndices, n_mid-1, t, 'NormAcc');
-                            acc =  normacc.length > 0 ? normacc.reduce((a, b) => a + b) / normacc.length : 0;
+                            [normacc] = CalcExcelAcc(workbook, checkedRowIndices, n_mid - 1, t, 'NormAcc');
+                            acc = normacc.length > 0 ? normacc.reduce((a, b) => a + b) / normacc.length : 0;
                             if (acc <= 100 * parseFloat(accValue)) {
                                 f = 1;
                                 n_mid = n_mid;
@@ -490,11 +490,11 @@ function optimalParamsTable(div_el, A, NA, N, T, S, SL, US, RC, curr, optim) {
         },
         cells: {
             values: [
-                ["Accuracy (Pearson's r)", '% max prediction accuracy',
+                ['Total budget', '% max prediction accuracy',
                     'Sample size (N)', 'fMRI scan duration (T)', 'Number of sessions',
-                    'Total scan time purchased', 'Unused scan time', 'Actual fMRI cost'],
-                [A[curr], NA[curr], N[curr], T[curr], S[curr], SL[curr], US[curr], RC[curr]],
-                [A[optim], NA[optim], N[optim], T[optim], S[optim], SL[optim], US[optim], RC[optim]],
+                    'Total scan time purchased', 'Unused scan time'],
+                [RC[curr], NA[curr], N[curr], T[curr], S[curr], SL[curr], US[curr]],
+                [RC[optim], NA[optim], N[optim], T[optim], S[optim], SL[optim], US[optim]],
             ],
             align: 'center',
             line: { color: "black", width: 0 },
@@ -780,14 +780,7 @@ function plotLinePlot(LineEl, x_vec, y_vec, pt, mode) {
 
     // Create highlight between maxY and (maxY - 0.01)
     if (mode == 'FixedBudget') {
-        var highlightTrace = {
-            x: [...x_vec, ...x_vec.slice().reverse()],
-            y: Array(x_vec.length).fill(maxY).concat(Array(x_vec.length).fill(maxY - 0.01)),  // Upper bound maxY and lower bound maxY - 1
-            fill: 'toself',  // Fill the area between these y-values, not to zero
-            mode: 'none',
-            name: 'Within 1% of optima',
-            fillcolor: 'rgba(0, 0, 255, 0.2)',  // Light blue highlight color
-        }
+        var highlightTrace = {};
     } else if (mode == 'FixedAcc') {
         var highlightTrace = {};
     };
@@ -1209,6 +1202,7 @@ function goToNextTab() {
     const currentTab = document.querySelector('input[name="ProcessTab"]:checked'),
         nextTabId = currentTab.id === 'results' ? 'phenotypes' : currentTab.id === 'phenotypes' ? 'budget' : currentTab.id === 'budget' ? 'overheads' : 'results';
 
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     document.getElementById(nextTabId).checked = true;
     updateGlider(document.getElementById(nextTabId));
     document.getElementById(nextTabId).dispatchEvent(new Event('change'));

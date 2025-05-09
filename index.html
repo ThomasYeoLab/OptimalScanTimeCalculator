@@ -39,19 +39,19 @@
                     Imaging Group</a>. Code specific to the analyses in this study can be found <a
                     href="https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/predict_phenotypes/Ooi2024_ME">here</a>.
             </p>
-            <br>
             <h2>Description</h2>
             <hr class="section-divider">
             <p> A pervasive dilemma in neuroimaging is whether to prioritize sample size or scan duration given fixed
                 resources. Here, we provide a tool that calculates the achievable individual-level prediction accuracy
                 with different combinations of fMRI sample size and scan durations, after taking into account other
-                study costs. This tool was built on 6 diverse datasets spanning phenotypic domains (cognition,
+                related costs. This tool was built on 6 diverse datasets spanning phenotypic domains (cognition,
                 personality, physical attributes, mental health, PET measures, etc), scanners (Siemens, GE and Philips),
                 acquisition protocols (single-echo-single-band, single-echo-multi-band, multi-echo-multi-band),
                 continents (North America and East Asia), health status (healthy, psychiatric disorders, mild cognitive
                 impairment, Alzheimer's disease), age groups (children, young adults, elderly), as well as resting-state
                 and task-state functional connectivity. Our study found that the optimal scan time range was largely
-                similarly across the datasets, suggesting that this calculator will be useful for most applications.
+                consistent across datasets, indicating that this calculator is likely to be applicable to a wide range
+                of use cases.
                 <br><br>
                 <img src="README_Figure.png" alt="README Figure">
             </p>
@@ -74,29 +74,34 @@
                     <span id="xValueDisplay">30</span>
                 </div>
                 % max prediction accuracy (r) <button class="popup-button">
-                    <div class="popup">Accuracy computed under a 10-fold cross-validation setup and averaged across 123
-                        phenotypes from 6 datasets</div><span class="question-icon"><i
+                    <div class="popup-wide">The fraction of maximum accuracy computed under a 10-fold cross-validation
+                        setup
+                        and averaged across 123
+                        phenotypes from 6 datasets. For example, a value of 80 means that the prediction model is
+                        expected to achieve, on average, 80% of the theorectially highest possible accuracy across the
+                        phenotypes considered.</div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button> : <div class="inline-div" , id="zValueDisplay"></div>
             </div>
 
             <h2>Enter your own N and T</h2>
             <div id="N_T">
-                <p>
-                    Sample size (N):
-                    <input type="number" id="sample_size" name="sample_size" value="1000">
-                    Scan time (T/min):
-                    <input type="number" id="scan_time" name="scan_time" value="30">
+                Sample size (N):
+                <input type="number" id="sample_size" name="sample_size" value="1000">
+                Scan time (T/min):
+                <input type="number" id="scan_time" name="scan_time" value="30">
 
                 <div class="button-container">
                     <button class="calculate-acc-button" id="calculateAcc" onclick="calculate_acc()">Calculate
                         prediction accuracy</button>
                 </div>
-                </p>
-
                 % max prediction accuracy (r) <button class="popup-button">
-                    <div class="popup">Accuracy computed under a 10-fold cross-validation setup and averaged across 123
-                        phenotypes from 6 datasets</div><span class="question-icon"><i
+                    <div class="popup-wide"> The fraction of maximum accuracy computed under a 10-fold cross-validation
+                        setup
+                        and averaged across 123
+                        phenotypes from 6 datasets. For example, a value of 80 means that the prediction model is
+                        expected to achieve, on average, 80% of the theorectially highest possible accuracy across the
+                        phenotypes considered. </div><span class="question-icon"><i
                             class="fas fa-circle-question"></i></span>
                 </button> : <div class="inline-div" , id="acc"></div>
 
